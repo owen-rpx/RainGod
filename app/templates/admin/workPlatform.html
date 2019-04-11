@@ -1,0 +1,32 @@
+{% extends "admin/bases.html" %}
+
+
+{% block content %}
+
+<div class="x-body layui-anim layui-anim-up">
+    <blockquote class="layui-elem-quote">欢迎你：
+        <span class="x-red">{{name}}</span>
+    </blockquote>
+    
+     <fieldset class="layui-elem-field">
+        <legend>系统通知</legend>
+        <div class="layui-field-box">
+            <table class="layui-table" lay-skin="line">
+                <tbody>
+                    <tr>
+                        <td>
+                            <a class="x-a" href="/" target="_blank">暂无</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+
+
+</div>
+
+
+
+{% endblock %}

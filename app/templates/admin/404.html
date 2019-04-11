@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>龙王塘社区居民管理系统</title>
+    <link href="{{url_for('static',filename='404/404.css')}}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="fullScreen" id="fullScreen">
+        <div class="pagenotfound">
+            <div class="pagenotfound-title">
+                <h1>404页面未找到</h1>
+                <p>可能是以下原因:</p>
+                <dd>
+                    <dt>找不到请求页面</dt>
+                    <dt>网络问题</dt>
+                </dd>
+            </div>
+            <div class="pagenotfound-text">
+                <h2><a href="{{url_for('admin.login')}}">返回首页</a></h2>
+            </div>
+            <canvas id="canvas2d"></canvas>
+        </div>
+    </div>
+</body>
+
+</html>

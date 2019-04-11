@@ -1,0 +1,83 @@
+html,
+body {
+    overflow: hidden;
+    background: #eeeeee;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    background: -webkit-linear-gradient(#5f5287, #8b7cb9);
+    font-family: "proxima nova", "Roboto", "helvetica", Arial, sans-serif;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    line-height: 50px;
+}
+
+div.pagenotfound {
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+div.pagenotfound dt {
+    text-align: left;
+    padding-left: 220px;
+    color: #b92f2f;
+}
+
+
+div.pagenotfound-text {
+    padding-right: 100px;
+}
+
+h2 {
+    color: white;
+    font-family: "proxima nova", "Roboto", "helvetica", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+    .opacity(50);
+}
+
+h1 a,
+h2 a {
+    color: #505358
+}
+
+.fullScreen {
+    height: 100%;
+}
+
+a.logo {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 250px;
+    text-decoration: none;
+    border-bottom: none;
+}

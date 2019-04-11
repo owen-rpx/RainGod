@@ -1,0 +1,139 @@
+{% extends "admin/bases.html" %}
+
+
+{% block content %}
+
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="logo"><a href="{{url_for('admin.index')}}">龙王塘社区居民管理</a></div>
+    <div class="left_open">
+        <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+    </div>
+
+    <ul class="layui-nav right" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;">{{name}}</a>
+            <dl class="layui-nav-child">
+                <!-- 二级菜单 -->
+                <dd><a href="{{url_for('admin.logout')}}">退出</a></dd>
+            </dl>
+        </li>
+    </ul>
+
+</div>
+<!-- 顶部结束 -->
+<!-- 中部开始 -->
+<!-- 左侧菜单开始 -->
+<div class="left-nav">
+    <div id="side-nav">
+        <ul id="nav">
+
+            <!-- 基础设置菜单 -->
+            <li>
+                <a href="javascript:;">
+                    <i class="layui-icon">&#xe62a;</i>
+                    <cite>基础设置</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{{url_for('admin.subdistrictMgr')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>小区管理</cite>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a _href="{{url_for('admin.estateMgr')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>楼盘管理</cite>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- 居民管理菜单 -->
+            <li>
+                <a href="javascript:;">
+                    <i class="layui-icon">&#xe770;</i> 
+                    <cite>居民管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{{url_for('admin.residentMgr')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>住户管理</cite>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- 统计分析菜单 -->
+            <li>
+                <a href="javascript:;">
+                    <i class="layui-icon">&#xe62c;</i> 
+                    <cite>统计分析</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{{url_for('admin.analysisMgr')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>住户统计</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- 系统工具菜单 -->
+            <li>
+                <a href="javascript:;">
+                    <i class="layui-icon">&#xe631;</i> 
+                    <cite>系统工具</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{{url_for('admin.importMgr')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>数据导入</cite>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>主工作平台</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='{{url_for("admin.workPlatform")}}' frameborder="0" scrolling="yes"
+                    class="x-iframe"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-bg"></div>
+
+<div class="footer">
+    <div class="copyright">
+        Copyright ©2018
+    </div>
+</div>
+
+
+
+</html>
+
+{% endblock %}
