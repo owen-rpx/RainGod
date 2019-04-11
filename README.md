@@ -14,7 +14,7 @@ flask实现的居民信息管理系统_雨神
 
 ```
 #clone项目到本地
-https://github.com/Owenzh/RainGod.git
+git clone https://github.com/Owenzh/RainGod.git
 #安装依赖
 pip install -r requirement.txt
 #运行sql
