@@ -14,6 +14,11 @@ from app.admin.forms import LoginForm, RegisterForm, wjpasswd
 from app.admin.uilt import get_verify_code
 from app.models import User
 
+def tsc():
+    t = time.time()
+    tsc = int(round(t * 1000))
+    return tsc
+
 def admin_login_req(f):
     @wraps(f)
     def decorated_function(*args,**kwargs):
@@ -130,7 +135,7 @@ def wjmm():
 @admin.route("/")
 @admin_login_req
 def index():
-    return render_template("admin/index.html",name=session["admin"])
+    return render_template("admin/index.html",name=session["admin"],tscv=tsc())
 
 @admin.route("/workPlatform/")
 @admin_login_req
@@ -164,7 +169,7 @@ def estateMgr():
 @admin.route("/residentmgr/")
 @admin_login_req
 def residentMgr():
-    return render_template("admin/residentmgr.html")
+    return render_template("admin/residentmgr.html",tscv=tsc())
 
 # 数据统计模块
 @admin.route("/analysismgr/")

@@ -1,13 +1,19 @@
-$(function () {
+$(function() {
     // 解决option文本过长问题
-    $("select").on('change', function (evt) {
+    $("select").on('change', function(evt) {
         var tar = evt.target;
         var checkText = $(tar).find("option:selected").text();
         $(tar).attr("title", checkText);
     });
 
+    // 绑定创建家庭成员表单
+    var member_frm_order = 0;
+    $("#btn_crt_member_frm").click(function() {
+        console.log('btn_crt_member_frm..');
+    });
+
     // 绑定并实例layui日期控件
-    layui.use('laydate', function () {
+    layui.use('laydate', function() {
         var laydate = layui.laydate;
         laydate.render({
             elem: '#join_party_date',
@@ -59,9 +65,6 @@ $(function () {
             zIndex: 99999999,
             trigger: 'click'
         });
-
-
     });
-
 
 });
