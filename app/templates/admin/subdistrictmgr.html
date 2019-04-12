@@ -6,9 +6,106 @@
 
 <div class="x-body">
   <div class="layui-row">
-    <p>小区信息管理页面</p>
-  </div>
+    <!-- <p>小区信息管理页面</p> -->
+    <table class="layui-hide" id="test" lay-filter="test">
 
+    </table>
+     <table class="layui-table" lay-data="{height:620, data:{{jsonData}},toolbar: 'default',page:true, id:'test'}" lay-filter="test">
+      <thead>
+        <tr>
+            <th lay-data="{type:'checkbox'}">ID</th>
+          <th lay-data="{field:'id', width:150, sort: true}">小区编号</th>
+          <th lay-data="{field:'name', width:400,sort: true}">小区名称</th>
+          <th lay-data="{field:'address', sort: true}">管理单位地址</th>
+        </tr>
+      </thead>
+    </table>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+      </div>
+    </script>
+     
+    <script type="text/html" id="barDemo">
+      <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+      <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+  </div>
+<div>
+
+    <script type="text/javascript" src="//layui.hcwl520.com.cn/layui-v2.4.5/layui.js?v=201811010202" charset="utf-8"></script>
+    <script>
+      console.log($('#testdata').val());
+layui.use('table', function(){
+  var table = layui.table;
+
+        //执行一个 table 实例
+  // table.render({
+  //   elem: '#test'
+  //   ,data: '{{jsonData}}'
+  //   ,toolbar: '#toolbarDemo'
+  //   ,height: 420
+  //   ,data:'' //数据接口
+  //   ,title: '用户表'
+  //   ,page: true //开启分页
+  //   ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+  //   ,totalRow: true //开启合计行
+  //   ,cols: [[ //表头
+  //     {type: 'checkbox', fixed: 'left'}
+  //     ,{field: 'id', title: '小区编号', width:100, sort: true, fixed: 'left'}
+  //     ,{field: 'name', title: '小区名称', width:300}
+  //     ,{field: 'address', title: '管理单位地址', sort: true, totalRow: true}
+  //   ]]
+  // });
+  //监听头工具栏事件
+  table.on('toolbar(test)', function(obj){
+    var checkStatus = table.checkStatus(obj.config.id)
+    ,data = checkStatus.data; //获取选中的数据
+    switch(obj.event){
+      case 'add':
+        layer.msg('添加');
+      break;
+      case 'update':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else if(data.length > 1){
+          layer.msg('只能同时编辑一个');
+        } else {
+          layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+        }
+      break;
+      case 'delete':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else {
+          layer.msg('删除');
+        }
+      break;
+    };
+  });
+  
+  //监听行工具事件
+  table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+    var data = obj.data //获得当前行数据
+    ,layEvent = obj.event; //获得 lay-event 对应的值
+    if(layEvent === 'detail'){
+      layer.msg('查看操作');
+    } else if(layEvent === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del(); //删除对应行（tr）的DOM结构
+        layer.close(index);
+        //向服务端发送删除指令
+      });
+    } else if(layEvent === 'edit'){
+      layer.msg('编辑操作');
+    }
+  });
+});
+        </script>
+</div>
 
 </div>
 

@@ -2,6 +2,7 @@
 
 import os
 import time
+import json
 from functools import wraps
 from io import BytesIO
 from flask_mail import Message
@@ -12,6 +13,11 @@ from flask import render_template, make_response, session, redirect, url_for, re
 from app.admin.forms import LoginForm, RegisterForm, wjpasswd
 from app.admin.uilt import get_verify_code
 from app.models import User
+
+def tsc():
+    t = time.time()
+    tsc = int(round(t * 1000))
+    return tsc
 
 def admin_login_req(f):
     @wraps(f)
@@ -129,7 +135,7 @@ def wjmm():
 @admin.route("/")
 @admin_login_req
 def index():
-    return render_template("admin/index.html",name=session["admin"])
+    return render_template("admin/index.html",name=session["admin"],tscv=tsc())
 
 @admin.route("/workPlatform/")
 @admin_login_req
@@ -149,18 +155,21 @@ def logout():
 @admin.route("/subdistrictmgr/")
 @admin_login_req
 def subdistrictMgr():
-    return render_template("admin/subdistrictmgr.html")
+    data=([{'id': '000001', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'}])
+    jsonData = json.dumps(data)
+    return render_template("admin/subdistrictmgr.html",jsonData=jsonData)
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req
 def estateMgr():
+    #data={["name": "aaa", "id": "1"],["name": "aaa", "id": "1"],["name": "aaa", "id": "1"]}
     return render_template("admin/estatemgr.html")
 
 # 住户管理模块
 @admin.route("/residentmgr/")
 @admin_login_req
 def residentMgr():
-    return render_template("admin/residentmgr.html")
+    return render_template("admin/residentmgr.html",tscv=tsc())
 
 # 数据统计模块
 @admin.route("/analysismgr/")

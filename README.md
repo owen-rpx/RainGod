@@ -5,9 +5,11 @@ flask实现的居民信息管理系统_雨神
 
 #### 技术栈
 
+- python3
 - flask
-- flask相关拓展
-- mysql
+- flask form
+- flask sqlalchemy 
+- sqlite数据库
 - layui模板
 
 #### 运行项目
