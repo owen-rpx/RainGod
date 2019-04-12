@@ -2,6 +2,7 @@
 
 import os
 import time
+import json
 from functools import wraps
 from io import BytesIO
 from flask_mail import Message
@@ -149,11 +150,14 @@ def logout():
 @admin.route("/subdistrictmgr/")
 @admin_login_req
 def subdistrictMgr():
-    return render_template("admin/subdistrictmgr.html")
+    data=([{'id': '000001', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'}])
+    jsonData = json.dumps(data)
+    return render_template("admin/subdistrictmgr.html",jsonData=jsonData)
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req
 def estateMgr():
+    #data={["name": "aaa", "id": "1"],["name": "aaa", "id": "1"],["name": "aaa", "id": "1"]}
     return render_template("admin/estatemgr.html")
 
 # 住户管理模块

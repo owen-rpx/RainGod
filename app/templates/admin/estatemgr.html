@@ -6,7 +6,21 @@
 
 <div class="x-body">
   <div class="layui-row">
-    <p>楼盘信息管理页面</p>
+    <!-- <p>楼盘信息管理页面</p> -->
+    <table class="layui-table" lay-data="{height:315, url:'/demo/table/user/', page:true, id:'test'}" lay-filter="test">
+      <thead>
+        <tr>
+          <th lay-data="{field:'id', width:150, sort: true}">户编号</th>
+          <th lay-data="{field:'buildnumber', width:400,sort: true}">楼号</th>
+          <th lay-data="{field:'housenumber', width:500, sort: true}">门牌号</th>
+          <th lay-data="{field:'property', width:500, sort: true}">房屋性质</th>
+          <th lay-data="{field:'estateID', width:500, sort: true}">小区编号</th>
+          <th lay-data="{field:'area', width:500, sort: true}">面积</th>
+          <th lay-data="{field:'buytime', width:500, sort: true}">购房时间</th>
+          <th lay-data="{field:'certificate', width:500, sort: true}">房证</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 
 
