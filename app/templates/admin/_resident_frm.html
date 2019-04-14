@@ -1,31 +1,32 @@
-{%macro create_frm()%}
-<table class="layui-table">
-    <tbody>
+<div class="table_container" id="dyn_{{dynId}}">
 
-        <!-- row-1 -->
-        <tr>
-            <td class="label">姓名</td>
-            <td>
-                <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" class="layui-input">
-            </td>
-            <td class="label">与户主关系</td>
-            <td>
-                <input type="text" name="relation" required lay-verify="required" placeholder="与户主关系" class="layui-input">
-            </td>
-            <td class="label">性别</td>
-            <td>
-                <select name="gender" lay-verify="required">
+    <table class="layui-table">
+        <tbody>
+
+            <!-- row-1 -->
+            <tr>
+                <td class="label">姓名</td>
+                <td>
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名" class="layui-input">
+                </td>
+                <td class="label">与户主关系</td>
+                <td>
+                    <input type="text" name="relation" required lay-verify="required" placeholder="与户主关系" class="layui-input">
+                </td>
+                <td class="label">性别</td>
+                <td>
+                    <select name="gender" lay-verify="required">
                   <option value="0">男</option>
                   <option value="1">女</option>
                 </select>
-            </td>
-            <td class="label">民族</td>
-            <td>
-                <input type="text" name="nation" required lay-verify="required" placeholder="请输入民族" class="layui-input">
-            </td>
-            <td class="label">文化程度</td>
-            <td>
-                <select name="education" lay-verify="required" title="博士">
+                </td>
+                <td class="label">民族</td>
+                <td>
+                    <input type="text" name="nation" required lay-verify="required" placeholder="请输入民族" class="layui-input">
+                </td>
+                <td class="label">文化程度</td>
+                <td>
+                    <select name="education" lay-verify="required" title="博士">
                   <option value="0" title="博士">博士</option>
                   <option value="1" title="研究生">研究生</option>
                   <option value="1" title="硕士">硕士</option>
@@ -37,20 +38,20 @@
                   <option value="1" title="文盲或半盲">文盲或半盲</option>
                   <option value="1" title="学龄前儿童">学龄前儿童</option>
                 </select>
-            </td>
-            <td class="label">户口性质</td>
-            <td>
-                <select name="household_type" lay-verify="required" title="居民家庭户口">
+                </td>
+                <td class="label">户口性质</td>
+                <td>
+                    <select name="household_type" lay-verify="required" title="居民家庭户口">
                   <option value="0">居民家庭户口</option>
                   <option value="1">非农业户口</option>
                   <option value="1">农业户口</option>
                   <option value="1">军人</option>
                   <option value="1">其他</option>
                 </select>
-            </td>
-            <td class="label">政治面貌</td>
-            <td>
-                <select name="politics" lay-verify="required" title="中国共产党党员">
+                </td>
+                <td class="label">政治面貌</td>
+                <td>
+                    <select name="politics" lay-verify="required" title="中国共产党党员">
                   <option value="0">中国共产党党员</option>
                   <option value="1">群众</option>
                   <option value="1">中国共产党预备党员</option>
@@ -66,18 +67,18 @@
                   <option value="1">无党派民主人士</option>
                   <option value="1">其他党派</option>
                 </select>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <!-- row-2 -->
-        <tr>
-            <td class="label">入党时间</td>
-            <td>
-                <input type="text" class="layui-input" id="join_party_date">
-            </td>
-            <td>宗教信仰</td>
-            <td>
-                <select name="religion" lay-verify="required" title="佛教">
+            <!-- row-2 -->
+            <tr>
+                <td class="label">入党时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="join_party_date_{{dynId}}">
+                </td>
+                <td>宗教信仰</td>
+                <td>
+                    <select name="religion" lay-verify="required" title="佛教">
                   <option value="0">佛教</option>
                   <option value="1">基督教</option>
                   <option value="1">伊斯兰教</option>
@@ -85,46 +86,46 @@
                   <option value="1">印度教</option>
                   <option value="1">其他教</option>
                 </select>
-            </td>
-            <td class="label">户籍地址</td>
-            <td colspan="3">
-                <textarea name="domicile_address" required lay-verify="required" placeholder="请输入户籍地址" class="layui-textarea"></textarea>
-            </td>
-            <td class="label">户籍转入时间</td>
-            <td>
-                <input type="text" class="layui-input" id="domicile_chkin_date">
-            </td>
-            <td class="label">户籍转出时间</td>
-            <td>
-                <input type="text" class="layui-input" id="domicile_chkout_date">
-            </td>
-            <td class="label">出生日期</td>
-            <td>
-                <input type="text" class="layui-input" id="birth_date">
-            </td>
-        </tr>
+                </td>
+                <td class="label">户籍地址</td>
+                <td colspan="3">
+                    <textarea name="domicile_address" required lay-verify="required" placeholder="请输入户籍地址" class="layui-textarea"></textarea>
+                </td>
+                <td class="label">户籍转入时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="domicile_chkin_date_{{dynId}}">
+                </td>
+                <td class="label">户籍转出时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="domicile_chkout_date_{{dynId}}">
+                </td>
+                <td class="label">出生日期</td>
+                <td>
+                    <input type="text" class="layui-input" id="birth_date_{{dynId}}">
+                </td>
+            </tr>
 
-        <!-- row-3 -->
-        <tr>
-            <td class="label">年龄</td>
-            <td>
-                <input type="text" name="age" required lay-verify="required" placeholder="请输入年龄" class="layui-input">
-            </td>
-            <td>身份证号码</td>
-            <td colspan="3">
-                <input type="text" name="ID_numbers" required lay-verify="required" placeholder="请输入身份证号码" class="layui-input">
-            </td>
-            <td class="label">联系电话</td>
-            <td>
-                <input type="text" name="phone_number" required lay-verify="required" placeholder="请输入联系电话" class="layui-input">
-            </td>
-            <td class="label">工作单位及职务</td>
-            <td colspan="3">
-                <textarea name="organization_position" required lay-verify="required" placeholder="请输入工作单位及职务" class="layui-textarea"></textarea>
-            </td>
-            <td class="label">居住状况</td>
-            <td>
-                <select name="residence_status" lay-verify="required" title="常住,户在">
+            <!-- row-3 -->
+            <tr>
+                <td class="label">年龄</td>
+                <td>
+                    <input type="text" name="age" required lay-verify="required" placeholder="请输入年龄" class="layui-input">
+                </td>
+                <td>身份证号码</td>
+                <td colspan="3">
+                    <input type="text" name="ID_numbers" required lay-verify="required" placeholder="请输入身份证号码" class="layui-input">
+                </td>
+                <td class="label">联系电话</td>
+                <td>
+                    <input type="text" name="phone_number" required lay-verify="required" placeholder="请输入联系电话" class="layui-input">
+                </td>
+                <td class="label">工作单位及职务</td>
+                <td colspan="3">
+                    <textarea name="organization_position" required lay-verify="required" placeholder="请输入工作单位及职务" class="layui-textarea"></textarea>
+                </td>
+                <td class="label">居住状况</td>
+                <td>
+                    <select name="residence_status" lay-verify="required" title="常住,户在">
                   <option value="0">常住,户在</option>
                   <option value="1">常住,户不在</option>
                   <option value="1">不住,户在</option>
@@ -133,14 +134,14 @@
                   <option value="1">搬走</option>
                   <option value="1">其他</option>
                 </select>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
-        <!-- row-4 -->
-        <tr>
-            <td class="label">健康状况</td>
-            <td>
-                <select name="heath_status" lay-verify="required" title="健康或良好">
+            <!-- row-4 -->
+            <tr>
+                <td class="label">健康状况</td>
+                <td>
+                    <select name="heath_status" lay-verify="required" title="健康或良好">
                     <option value="0">健康或良好</option>
                     <option value="1">一般或较弱</option>
                     <optgroup label="有慢性病">
@@ -215,10 +216,10 @@
                     </optgroup>
                     <option value="5">死亡</option>
                 </select>
-            </td>
-            <td class="label">医保情况</td>
-            <td>
-                <select name="medical_insurance" lay-verify="required" title="城镇职工">
+                </td>
+                <td class="label">医保情况</td>
+                <td>
+                    <select name="medical_insurance" lay-verify="required" title="城镇职工">
                 <option value="0">城镇职工</option>
                 <option value="1">城乡居民</option>
                 <option value="2">新农合</option>
@@ -226,10 +227,10 @@
                 <option value="4">无</option>
                 <option value="5">其他</option>
             </select>
-            </td>
-            <td class="label">养老保险</td>
-            <td>
-                <select name="endowment_insurance" lay-verify="required" title="城镇职工">
+                </td>
+                <td class="label">养老保险</td>
+                <td>
+                    <select name="endowment_insurance" lay-verify="required" title="城镇职工">
                     <option value="0">城镇职工</option>
                     <option value="1">城乡居民</option>
                     <option value="2">新农合</option>
@@ -237,17 +238,17 @@
                     <option value="4">无</option>
                     <option value="5">其他</option>
                 </select>
-            </td>
-            <td class="label">有无就业意向</td>
-            <td>
-                <select name="is_job_will" lay-verify="required" title="有">
+                </td>
+                <td class="label">有无就业意向</td>
+                <td>
+                    <select name="is_job_will" lay-verify="required" title="有">
                     <option value="0">有</option>
                     <option value="1">无</option>
                 </select>
-            </td>
-            <td class="label">婚姻状况</td>
-            <td>
-                <select name="married_status" lay-verify="required" title="未婚">
+                </td>
+                <td class="label">婚姻状况</td>
+                <td>
+                    <select name="married_status" lay-verify="required" title="未婚">
                     <option value="0">未婚</option>
                     <optgroup label="已婚">
                     <option value="1">初婚</option>
@@ -258,46 +259,46 @@
                     <option value="5">其他</option>
                     </optgroup>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">初/离/再婚 日期</td>
-            <td>
-                <input type="text" class="layui-input" id="married_date">
-            </td>
-            <td class="label">是否为独生子女</td>
-            <td>
-                <select name="is_only_child" lay-verify="required" title="是">
+                <td class="label">初/离/再婚 日期</td>
+                <td>
+                    <input type="text" class="layui-input" id="married_date_{{dynId}}">
+                </td>
+                <td class="label">是否为独生子女</td>
+                <td>
+                    <select name="is_only_child" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
+                </td>
 
-        </tr>
+            </tr>
 
-        <!-- row-5 -->
-        <tr>
-            <td class="label">是否领独生子女证(证号)</td>
-            <td>
-                <select name="is_have_only_child_certificate" lay-verify="required" title="是">
+            <!-- row-5 -->
+            <tr>
+                <td class="label">是否领独生子女证(证号)</td>
+                <td>
+                    <select name="is_have_only_child_certificate" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">节育措施</td>
-            <td>
-                <input type="text" name="birth_control" required lay-verify="required" placeholder="请输入节育措施" class="layui-input">
+                </td>
+                <td class="label">节育措施</td>
+                <td>
+                    <input type="text" name="birth_control" required lay-verify="required" placeholder="请输入节育措施" class="layui-input">
 
-            </td>
-            <td class="label">是否有要二孩的计划</td>
-            <td>
-                <select name="is_have_second_child_plan" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否有要二孩的计划</td>
+                <td>
+                    <select name="is_have_second_child_plan" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">人口类型</td>
-            <td>
-                <select name="population_type" lay-verify="required" title="村民">
+                </td>
+                <td class="label">人口类型</td>
+                <td>
+                    <select name="population_type" lay-verify="required" title="村民">
                     <optgroup label="户籍人口">
                     <option value="0">村民</option>
                     <option value="1">居民</option>
@@ -310,147 +311,234 @@
                     </optgroup>
                     <option value="6">其他人口</option>
                 </select>
-            </td>
-            <td class="label">住房性质</td>
-            <td>
-                <select name="housing_type" lay-verify="required" title="自住">
+                </td>
+                <td class="label">住房性质</td>
+                <td>
+                    <select name="housing_type" lay-verify="required" title="自住">
                     <option value="0">自住</option>
                     <option value="0">出租</option>
                     <option value="0">未售</option>
                     <option value="0">公建</option>
                     <option value="0">其他</option>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">住房面积(平米)</td>
-            <td>
-                <input type="text" name="housing_area" required lay-verify="required" placeholder="请输入住房面积" class="layui-input">
-            </td>
-            <td class="label">购房时间</td>
-            <td>
-                <input type="text" class="layui-input" id="buy_house_date">
-            </td>
-        </tr>
+                <td class="label">住房面积(平米)</td>
+                <td>
+                    <input type="text" name="housing_area" required lay-verify="required" placeholder="请输入住房面积" class="layui-input">
+                </td>
+                <td class="label">购房时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="buy_house_date_{{dynId}}">
+                </td>
+            </tr>
 
 
-        <!-- row-6 -->
-        <tr>
-            <td class="label">是否有房产证</td>
-            <td>
-                <select name="is_have_house_certificate" lay-verify="required" title="是">
+            <!-- row-6 -->
+            <tr>
+                <td class="label">是否有房产证</td>
+                <td>
+                    <select name="is_have_house_certificate" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">是否有车</td>
-            <td>
-                <select name="is_have_car" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否有车</td>
+                <td>
+                    <select name="is_have_car" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">是否低保户</td>
-            <td>
-                <select name="is_living_guarantee" lay-verify="required" title="是">
+                <td class="label">是否低保户</td>
+                <td>
+                    <select name="is_living_guarantee" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">是否空巢</td>
-            <td>
-                <select name="is_empty_nest" lay-verify="required" title="是">
+                <td class="label">是否空巢</td>
+                <td>
+                    <select name="is_empty_nest" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">是否独居</td>
-            <td>
-                <select name="is_live_alone" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否独居</td>
+                <td>
+                    <select name="is_live_alone" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">是否离巢</td>
-            <td>
-                <select name="is_leave_nest" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否离巢</td>
+                <td>
+                    <select name="is_leave_nest" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">是否愿意参与社区管理</td>
-            <td>
-                <select name="is_want_community_mgr" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否愿意参与社区管理</td>
+                <td>
+                    <select name="is_want_community_mgr" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-        </tr>
+                </td>
+            </tr>
 
 
-        <!-- row-7 -->
-        <tr>
-            <td class="label">是否愿意参加社区文化活动</td>
-            <td>
-                <select name="is_want_community_activity" lay-verify="required" title="是">
+            <!-- row-7 -->
+            <tr>
+                <td class="label">是否愿意参加社区文化活动</td>
+                <td>
+                    <select name="is_want_community_activity" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">是否愿意加入社区志愿者队伍</td>
-            <td>
-                <select name="is_want_community_volunteer" lay-verify="required" title="是">
+                </td>
+                <td class="label">是否愿意加入社区志愿者队伍</td>
+                <td>
+                    <select name="is_want_community_volunteer" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">有无加入党组织意向</td>
-            <td>
-                <select name="is_join_party" lay-verify="required" title="是">
+                <td class="label">有无加入党组织意向</td>
+                <td>
+                    <select name="is_join_party" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
+                </td>
 
-            <td class="label">是否养犬</td>
-            <td>
-                <select name="is_domestication_dog" lay-verify="required" title="是">
+                <td class="label">是否养犬</td>
+                <td>
+                    <select name="is_domestication_dog" lay-verify="required" title="是">
                     <option value="0">是</option>
                     <option value="1">否</option>
                 </select>
-            </td>
-            <td class="label">户籍转入时间</td>
-            <td>
-                <input type="text" class="layui-input" id="domicile_chkin_2_date">
-            </td>
-            <td class="label">户籍转出时间</td>
-            <td>
-                <input type="text" class="layui-input" id="domicile_chkout_2_date">
-            </td>
-            <td class="label">最新入户时间</td>
-            <td>
-                <input type="text" class="layui-input" id="latest_register_date">
-            </td>
+                </td>
+                <td class="label">户籍转入时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="domicile_chkin_2_date_{{dynId}}">
+                </td>
+                <td class="label">户籍转出时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="domicile_chkout_2_date_{{dynId}}">
+                </td>
+                <td class="label">最新入户时间</td>
+                <td>
+                    <input type="text" class="layui-input" id="latest_register_date_{{dynId}}">
+                </td>
 
-        </tr>
+            </tr>
 
-        <!-- row-8 -->
-        <tr>
-            <td class="label">对社区的建议</td>
-            <td colspan="13">
-                <textarea name="community_proposal" required lay-verify="required" placeholder="建议" class="layui-textarea"></textarea>
-            </td>
-        </tr>
+            <!-- row-8 -->
+            <tr>
+                <td class="label">对社区的建议</td>
+                <td colspan="13">
+                    <textarea name="community_proposal" required lay-verify="required" placeholder="建议" class="layui-textarea"></textarea>
+                </td>
+            </tr>
 
-        <!-- row-8 -->
-        <tr>
-            <td class="label">备注</td>
-            <td colspan="13">
-                <textarea name="remark" required lay-verify="required" placeholder="备注" class="layui-textarea"></textarea>
-            </td>
-        </tr>
-    </tbody>
-</table>
-{%endmacro%}
+            <!-- row-8 -->
+            <tr>
+                <td class="label">备注</td>
+                <td colspan="13">
+                    <textarea name="remark" required lay-verify="required" placeholder="备注" class="layui-textarea"></textarea>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-primary" id="btn_save_res_{{dynId}}">保存</button>
+        <button class="layui-btn layui-btn-danger" id="btn_remove_res_{{dynId}}">移除</button>
+    </div>
+
+
+    <!--  -->
+    <script>
+        $(function() {
+            // 解决option文本过长问题
+            $("select").on('change', function(evt) {
+                var tar = evt.target;
+                var checkText = $(tar).find("option:selected").text();
+                $(tar).attr("title", checkText);
+            });
+            // 移除表单
+            var dynId = eval('{{dynId}}');
+            $("#btn_remove_res_{{dynId}}").unbind().click(function(evt) {
+                layer.confirm('移除表单?', {
+                    icon: 3,
+                    title: '提示'
+                }, function(index) {
+                    //do something
+                    $("#dyn_" + dynId).fadeOut("slow", function() {
+                        $("#dyn_" + dynId).remove();
+                        layer.close(index);
+                    });
+                });
+            });
+        });
+        // 绑定并实例layui日期控件
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#join_party_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+
+            laydate.render({
+                elem: '#domicile_chkin_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+
+            laydate.render({
+                elem: '#domicile_chkout_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+
+            laydate.render({
+                elem: '#birth_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+
+            laydate.render({
+                elem: '#married_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+
+            laydate.render({
+                elem: '#buy_house_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+            laydate.render({
+                elem: '#domicile_chkin_2_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+            laydate.render({
+                elem: '#domicile_chkout_2_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+            laydate.render({
+                elem: '#latest_register_date_{{dynId}}',
+                zIndex: 99999999,
+                trigger: 'click'
+            });
+        });
+    </script>
+
+</div>

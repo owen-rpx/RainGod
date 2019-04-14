@@ -1,23 +1,23 @@
 {% extends "admin/bases.html" %}
 <!--  -->
-{% import "admin/_resident_frm.html" as frm %}
+<!-- {% import "admin/_resident_frm.html" as frm %} -->
 <!--  -->
 {% block content %}
 <!--  -->
 <div class="x-body residentmgr">
     <div class="layui-row">
-        <button class="layui-btn layui-btn-normal" id="btn_crt_member_frm">创建家庭成员信息</button>
-        <div class="table_container">
-            <p>房主家庭成员基本信息</p>
-            {{ frm.create_frm() }}
+        <!-- <button class="layui-btn layui-btn-normal">创建家庭成员信息</button> -->
+        <button class="layui-btn" id="btn_crt_member_frm">
+            <i class="layui-icon">&#xe608;</i> 添加成员
+          </button>
+        <p>房主家庭成员基本信息</p>
+        <div id="res_sets">
+
         </div>
     </div>
 </div>
 
 <!-- js脚本 -->
-<script>
-    var ts = new Date().valueOf();
-</script>
 <script type="text/javascript" src="{{url_for('static',filename='js/residentmgr.js', tsc=tscv)}}"></script>
 
 <!--  -->

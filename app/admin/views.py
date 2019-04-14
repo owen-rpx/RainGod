@@ -171,6 +171,12 @@ def estateMgr():
 def residentMgr():
     return render_template("admin/residentmgr.html",tscv=tsc())
 
+# 加载住户模板
+@admin.route("/dynresidenttable/<id>")
+@admin_login_req
+def dynResidentTable(id):
+    return render_template("admin/_resident_frm.html",dynId=id)
+
 # 数据统计模块
 @admin.route("/analysismgr/")
 @admin_login_req
