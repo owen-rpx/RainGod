@@ -1,19 +1,24 @@
 {% extends "admin/bases.html" %}
-<!--  -->
-<!-- {% import "admin/_resident_frm.html" as frm %} -->
-<!--  -->
+
+{% import "admin/_resident_basic.html" as basic %}
+
 {% block content %}
 <!--  -->
 <div class="x-body residentmgr">
+    
     <div class="layui-row">
-        <!-- <button class="layui-btn layui-btn-normal">创建家庭成员信息</button> -->
-        <button class="layui-btn" id="btn_crt_member_frm">
-            <i class="layui-icon">&#xe608;</i> 添加成员
-          </button>
-        <p>房主家庭成员基本信息</p>
-        <div id="res_sets">
+        {{basic.loadBasic()}}
+    </div>
 
+    <div class="layui-tab" lay-allowClose="true" lay-filter="member_tab" style="display:none">
+        <ul class="layui-tab-title">
+        </ul>
+        <div class="layui-tab-content">
         </div>
+    </div>
+
+    <div class="layui-btn-container">
+        <button class="layui-btn" id="btn_save_resident">立即提交</button>
     </div>
 </div>
 
