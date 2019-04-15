@@ -1,5 +1,9 @@
     /* 住户管理模块样式 residentmgr */
-    
+    .residentmgr .resident_title {
+        font-size: 1.5em;
+        font-weight: 700;
+        padding-right: 30px;
+    }
     .residentmgr .table_container {
         overflow-y: auto;
     }
