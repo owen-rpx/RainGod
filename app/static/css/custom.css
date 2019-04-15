@@ -1,39 +1,44 @@
-/* 住户管理模块样式 residentmgr */
-
-.residentmgr .table_container {
-    overflow-y: auto;
-}
-
-.residentmgr .layui-table td.label {
-    padding-left: 2px;
-    padding-right: 5px;
-    min-width: 80px;
-}
-
-.residentmgr .layui-table td {
-    padding: 0;
-    border-color: #000;
-    word-break: keep-all;
-}
-
-.residentmgr .layui-table select {
-    min-width: 65px;
-    height: 38px;
-    padding: 0;
-}
-
-.residentmgr .layui-table textarea {
-    text-align: left;
-    min-height: 38px;
-    height: 38px;
-    padding: 0;
-}
-
-.residentmgr .layui-table textarea[placeholder] {
-    padding: 10px;
-}
-
-.residentmgr .layui-table .layui-input {
-    min-width: 100px;
-    padding-left: 1px;
-}
+    /* 住户管理模块样式 residentmgr */
+    
+    .residentmgr .table_container {
+        overflow-y: auto;
+    }
+    
+    .residentmgr .layui-table td.label {
+        padding-left: 2px;
+        padding-right: 5px;
+        min-width: 80px;
+    }
+    
+    .residentmgr .layui-table td {
+        padding: 0;
+        border-color: #000;
+        word-break: keep-all;
+    }
+    
+    .residentmgr .layui-table select {
+        min-width: 65px;
+        height: 38px;
+        padding: 0;
+    }
+    
+    .residentmgr .layui-table textarea {
+        text-align: left;
+        min-height: 38px;
+        height: 38px;
+        padding: 0;
+    }
+    
+    .residentmgr .layui-table textarea[placeholder] {
+        padding: 10px;
+    }
+    
+    .residentmgr .layui-table [placeholder] {
+        font-size: 9px;
+        font-style: italic;
+    }
+    
+    .residentmgr .layui-table .layui-input {
+        min-width: 100px;
+        padding-left: 1px;
+    }
