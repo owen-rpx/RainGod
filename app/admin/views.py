@@ -182,7 +182,22 @@ def createResident():
 @admin.route("/residentmgr/")
 @admin_login_req
 def residentMgr():
-    return render_template("admin/residentmgr.html",tscv=tsc())
+    data = ([
+        {'id': '000001', 'name': '张三', 'sex': '男', 'renyuan_relationship': '本人', 'birthday': '1996-10-01', 'shenfenzheng': 211000199402126521,
+            'minzu': '汉', 'hukou_type': '居民家庭户口', 'married_status': '未婚', 'juzhu_zhuangtai': '不住，户在', 'renyuan_type': '买', 'renkou_type': '居民'},
+        {'id': '000002', 'name': '李四', 'sex': '男', 'renyuan_relationship': '丈夫', 'birthday': '1987-08-15', 'shenfenzheng': 211220199602126521,
+            'minzu': '汉', 'hukou_type': '非农业户口', 'married_status': '未婚', 'juzhu_zhuangtai': '空挂', 'renyuan_type': '买', 'renkou_type': '跨省'},
+        {'id': '000003', 'name': '王五', 'sex': '女', 'renyuan_relationship': '本人', 'birthday': '1991-08-11', 'shenfenzheng': 211220199702126521,
+            'minzu': '汉', 'hukou_type': '居民家庭户口', 'married_status': '未婚', 'juzhu_zhuangtai': '常住，户在', 'renyuan_type': '买', 'renkou_type': '跨省'},
+        {'id': '000004', 'name': '赵六', 'sex': '女', 'renyuan_relationship': '妻子', 'birthday': '1992-06-11', 'shenfenzheng': 211220198202126521,
+            'minzu': '汉', 'hukou_type': '非农业户口', 'married_status': '已婚', 'juzhu_zhuangtai': '空挂', 'renyuan_type': '买', 'renkou_type': '跨省'},
+        {'id': '000005', 'name': '蔡徐坤', 'sex': '女', 'renyuan_relationship': '儿子', 'birthday': '1996-08-01', 'shenfenzheng': 211220199402126521,
+            'minzu': '汉', 'hukou_type': '农业户口', 'married_status': '未婚', 'juzhu_zhuangtai': '常住，户在', 'renyuan_type': '买', 'renkou_type': '跨省'},
+        {'id': '000006', 'name': '无邪', 'sex': '男', 'renyuan_relationship': '本人', 'birthday': '1996-11-11', 'shenfenzheng': 211220199402126521,
+            'minzu': '汉', 'hukou_type': '居民家庭户口', 'married_status': '再婚', 'juzhu_zhuangtai': '空挂', 'renyuan_type': '租', 'renkou_type': '村民'}
+    ])
+    jsonData = json.dumps(data)
+    return render_template("admin/residentmgr.html",tscv=tsc(),jsonData=jsonData)
 
 # 加载成员模板
 @admin.route("/dynresidenttable/<id>")
