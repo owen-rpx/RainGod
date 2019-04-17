@@ -83,6 +83,8 @@ ruzhu_dt date,
 ruhu_dt date,
 suggestion varchar(100),
 comment varchar(100),
+renyuan_type   varchar(10),         --\ these two fields define if the person  rents a house, or is the owner of house, their relationships, please reference the excel model.   for example renyuan_type is one of rent,owner, owner family,rent family;
+renyuan_relationship varchar(30),   --/ renyuan_relationship is one of wife husband child ...
 active int, -- determine if the item is history data
 hu_id integer, -- relationship with table huxinxi
 foreign key(hu_id) references huxinxi(id)
