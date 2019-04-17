@@ -150,7 +150,7 @@ def logout():
     return redirect(url_for("admin.login"))
 
 
-# 基础设置模块
+## 基础设置模块
 # 小区管理
 @admin.route("/subdistrictmgr/")
 @admin_login_req
@@ -165,13 +165,26 @@ def estateMgr():
     #data={["name": "aaa", "id": "1"],["name": "aaa", "id": "1"],["name": "aaa", "id": "1"]}
     return render_template("admin/estatemgr.html")
 
-# 住户管理模块
+# 户管理模块
+@admin.route("/householdmgr/")
+@admin_login_req
+def householdMgr():
+    return render_template("admin/householdmgr.html",tscv=tsc())
+
+## 住户管理模块
+# 新增住户
+@admin.route("/createresident/")
+@admin_login_req
+def createResident():
+    return render_template("admin/createresident.html",tscv=tsc())
+
+# 住户管理
 @admin.route("/residentmgr/")
 @admin_login_req
 def residentMgr():
     return render_template("admin/residentmgr.html",tscv=tsc())
 
-# 加载住户模板
+# 加载成员模板
 @admin.route("/dynresidenttable/<id>")
 @admin_login_req
 def dynResidentTable(id):

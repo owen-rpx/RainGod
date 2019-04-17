@@ -1,0 +1,29 @@
+{% extends "admin/bases.html" %}
+
+{% import "admin/_resident_basic.html" as basic %}
+
+{% block content %}
+<!--  -->
+<div class="x-body residentmgr">
+    
+    <div class="layui-row">
+        {{basic.loadBasic()}}
+    </div>
+
+    <div class="layui-tab" lay-allowClose="true" lay-filter="member_tab" style="display:none">
+        <ul class="layui-tab-title">
+        </ul>
+        <div class="layui-tab-content">
+        </div>
+    </div>
+
+    <div class="layui-btn-container">
+        <button class="layui-btn" id="btn_save_resident">立即提交</button>
+    </div>
+</div>
+
+<!-- js脚本 -->
+<script type="text/javascript" src="{{url_for('static',filename='js/residentmgr.js', tsc=tscv)}}"></script>
+
+<!--  -->
+{% endblock %}
