@@ -25,10 +25,10 @@ drop table if exists huxinxi;
 -- Add more fields if you like
 create table huxinxi(id varchar(30) primary key,
 roomno varchar(20),
-house_type tinyint,
+house_type varchar(20),
 squares float,
 house_by_dt date,
-house_cert tinyint,
+house_cert varchar(10),
 active int, -- determine if the item is history data
 --xiaoqu_id integer not null,  -- relationship with table xiaoqu
 -- foreign key(xiaoqu_id) references xiaoqu(id)
@@ -49,7 +49,7 @@ wenhua varchar(20) ,
 hukou_type varchar(20),
 zhengzhi_mianmao varchar(20),
 join_party_dt date,
-belief tinyint,
+belief varchar(20),
 huji_addr varchar(100),
 huji_in_dt date,
 huji_out_dt date,
