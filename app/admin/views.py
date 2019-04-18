@@ -185,7 +185,7 @@ def subdistrictmgr_change():
         db.session.add(xiaoqu)
         db.session.commit()
         flash("添加成功")
-        return redirect(url_for("admin.subdistrictmgr_change"))
+        return redirect(url_for("admin.subdistrictmgr_change")+"?status=success")
     return render_template("admin/subdistrictmgr_change.html",form=form)
 
 # 楼盘管理

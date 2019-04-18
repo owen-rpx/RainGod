@@ -252,6 +252,6 @@ class XiaoQuForm(FlaskForm):
             "type": "submit",
             "lay-filter": "submit",
             "style": "width:100px; height:30px;",
-            "onclick": "mesg()"
+            "onclick": ""
         }
     )
