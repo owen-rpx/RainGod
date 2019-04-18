@@ -6,25 +6,7 @@
   <div class="layui-row">
     <table class="layui-hide" id="test" lay-filter="test">
     </table>
-    <table class="layui-table" lay-data="{height:620, data:{{jsonData}},toolbar: '#barDemo', defaultToolbar:[], page:true, id:'test'}"
-      lay-filter="test">
-      <thead>
-        <tr>									
-          <th lay-data="{type:'checkbox'}">ID</th>
-          <th lay-data="{field:'name', sort: true}">姓名</th>
-          <th lay-data="{field:'sex', sort: true}">性别</th>
-          <th lay-data="{field:'renyuan_relationship', sort: true}">与户主关系</th>
-          <th lay-data="{field:'birthday', sort: true}">出生日期</th>
-          <th lay-data="{field:'shenfenzheng'}">身份证号码</th>
-          <th lay-data="{field:'minzu', sort: true}">民族</th>
-          <th lay-data="{field:'hukou_type', sort: true}">户口性质</th>
-          <th lay-data="{field:'married_status', sort: true}">婚姻状况</th>
-          <th lay-data="{field:'juzhu_zhuangtai', sort: true}">居住状况</th>
-          <th lay-data="{field:'renyuan_type', sort: true}">住户类型</th>
-          <th lay-data="{field:'renkou_type', sort: true}">人口类型</th>
-        </tr>
-      </thead>
-    </table>
+    <table class="layui-table" id="test" lay-filter="test"></table>
     <script type="text/html" id="toolbarDemo">
       <div class="layui-btn-container">
         <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
@@ -34,67 +16,117 @@
     </script>
 
     <script type="text/html" id="barDemo">
-      <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+      <!-- <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a> -->
       <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+      <span>姓名:</span>
+      <input type="text" id="q_name"  placeholder="请输入姓名" class="layui-input" style="display:inline-block;">
+      <span>身份证:</span>
+      <input type="text" id="q_sfz"  placeholder="请输入身份证" class="layui-input" style="display:inline-block;">
+      <a class="layui-btn layui-btn-xs" lay-event="query">查询</a>
     </script>
 
   </div>
   <div>
-    
     <script>
-      console.log($('#testdata').val());
-      layui.use('table', function () {
-        var table = layui.table;
-        //监听头工具栏事件
-        table.on('toolbar(test)', function (obj) {
-          var checkStatus = table.checkStatus(obj.config.id)
-            , data = checkStatus.data; //获取选中的数据
-          switch (obj.event) {
-            case 'edit':
-              if (data.length === 0) {
-                layer.msg('请选择一行');
-              } else if (data.length > 1) {
-                layer.msg('只能同时编辑一个');
-              } else {
-                // layer.alert('需要打开子编辑页面: [id] : ' + checkStatus.data[0].id);
-                var householdId = checkStatus.data[0].id;
-                //Ajax获取
-                $.get('/admin/residentedit', {}, function(str){
-                  layer.open({
-                    type: 1,
-                    offset: '100px',
-                    area: ['800px', '500px'],
-                    content: str //注意，如果str是object，那么需要字符拼接。
-                  });
+      $(function () {
+        layui.use('table', function () {
+          var table = layui.table;
+          //第一个实例
+          var tableIns = table.render({
+            elem: '#test'
+            , height: 600
+            , toolbar: '#barDemo'
+            , defaultToolbar: []
+            , url: '/admin/residentquery/' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+              { field: 'id', title: '', type: 'checkbox', width: 80, sort: true }
+              , {
+                field: 'name', title: '姓名', width: 80, templet: function (d) {
+                  // console.log(d);
+                  var url = '/admin/residentedit/' + d.id;
+                  return '<div><a href="' + url + '">' + d.name + '</a></div>'
+                }
+              }
+              , { field: 'sex', title: '性别', width: 80, sort: true }
+              , { field: 'renyuan_relationship', title: '与户主关系' }
+              , { field: 'birthday', title: '出生日期' }
+              , { field: 'shenfenzheng', title: '身份证号码' }
+              , { field: 'minzu', title: '民族' }
+              , { field: 'hukou_type', title: '户口性质' }
+              , { field: 'married_status', title: '婚姻状况' }
+              , { field: 'juzhu_zhuangtai', title: '居住状况' }
+              , { field: 'renyuan_type', title: '住户类型' }
+              , { field: 'renkou_type', title: '人口类型' }
+            ]]
+          });
+          //监听头工具栏事件
+          table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id)
+              , data = checkStatus.data; //获取选中的数据
+            switch (obj.event) {
+              case 'query':
+                var q_name = $("#q_name").val().trim();
+                var q_sfz = $("#q_sfz").val().trim();
+                //这里以搜索为例
+                tableIns.reload({
+                  where: { //设定异步数据接口的额外参数，任意设
+                    rname: q_name,
+                    sfz: q_sfz
+                  }
+                  , page: {
+                    curr: 1 //重新从第 1 页开始
+                  }
                 });
-              }
-              break;
-            case 'del':
-              if (data.length === 0) {
-                layer.msg('请选择一行');
-              } else {
-                layer.msg('删除');
-              }
-              break;
-          };
+                break;
+              case 'edit':
+                if (data.length === 0) {
+                  layer.msg('请选择一行');
+                } else if (data.length > 1) {
+                  layer.msg('只能同时编辑一个');
+                } else {
+                  //unused
+                  // layer.alert('需要打开子编辑页面: [id] : ' + checkStatus.data[0].id);
+                  var householdId = checkStatus.data[0].id;
+                  //Ajax获取
+                  $.get('/admin/residentedit', {}, function (str) {
+                    layer.open({
+                      type: 1,
+                      offset: '100px',
+                      area: ['800px', '500px'],
+                      content: str //注意，如果str是object，那么需要字符拼接。
+                    });
+                  });
+                }
+                break;
+              case 'del':
+                if (data.length === 0) {
+                  layer.msg('请选择一行');
+                } else {
+                  layer.msg('删除');
+                }
+                break;
+            };
+          });
+
+          //监听行工具事件
+          table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+              , layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'detail') {
+              layer.msg('查看操作');
+            } else if (layEvent === 'del') {
+              layer.confirm('真的删除行么', function (index) {
+                obj.del(); //删除对应行（tr）的DOM结构
+                layer.close(index);
+                //向服务端发送删除指令
+              });
+            } else if (layEvent === 'edit') {
+              layer.msg('编辑操作');
+            }
+          });
         });
 
-        //监听行工具事件
-        table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-          var data = obj.data //获得当前行数据
-            , layEvent = obj.event; //获得 lay-event 对应的值
-          if (layEvent === 'detail') {
-            layer.msg('查看操作');
-          } else if (layEvent === 'del') {
-            layer.confirm('真的删除行么', function (index) {
-              obj.del(); //删除对应行（tr）的DOM结构
-              layer.close(index);
-              //向服务端发送删除指令
-            });
-          } else if (layEvent === 'edit') {
-            layer.msg('编辑操作');
-          }
-        });
       });
     </script>
   </div>

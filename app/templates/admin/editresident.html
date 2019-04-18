@@ -1,6 +1,6 @@
 {% extends "admin/bases.html" %}
 
-{% import "admin/_resident_basic.html" as basic %}
+{% import "admin/_edit_resident_basic.html" as basic %}
 
 {% block content %}
 <!--  -->
@@ -18,12 +18,12 @@
     </div>
 
     <div class="layui-btn-container">
-        <button class="layui-btn" id="btn_save_resident">立即提交</button>
+        <button class="layui-btn" id="btn_save_resident">保存修改</button>
     </div>
 </div>
 
 <!-- js脚本 -->
-<script type="text/javascript" src="{{url_for('static',filename='js/residentmgr.js', tsc=tscv)}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/edit_residentmgr.js', tsc=tscv)}}"></script>
 
 <!--  -->
 {% endblock %}

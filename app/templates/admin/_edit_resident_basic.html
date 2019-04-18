@@ -1,0 +1,112 @@
+{%macro loadBasic()%}
+<div class="table_container">
+    <p>
+        <span class="resident_title">户基本信息</span>
+        <button class="layui-btn layui-btn-primary" id="btn_crt_member_frm">
+            <i class="layui-icon">&#xe608;</i> 添加成员
+        </button>
+    </p>
+    <table class="layui-table">
+        <tbody>
+
+            <!-- row-1 -->
+            <tr>
+                <td class="label">管理小区编号</td>
+                <td>
+                    <input type="text" name="subdistrict_id" required lay-verify="required" placeholder="请输入小区编号"
+                        class="layui-input">
+                </td>
+                <td class="label">户编号</td>
+                <td>
+                    <input type="text" name="household_id" required lay-verify="required" placeholder="户编号"
+                        class="layui-input">
+                </td>
+                <td class="label">房主姓名</td>
+                <td>
+                    <input type="text" name="household_name" required lay-verify="required" placeholder="房主姓名"
+                        class="layui-input">
+                </td>
+                <td class="label">联系电话</td>
+                <td>
+                    <input type="text" name="household_telephone" required lay-verify="required" placeholder="请输入联系电话"
+                        class="layui-input">
+                </td>
+                <td class="label">楼号</td>
+                <td>
+                    <input type="text" name="building_id" required lay-verify="required" placeholder="请输入楼号"
+                        class="layui-input">
+                </td>
+                <td class="label">门牌号</td>
+                <td>
+                    <input type="text" name="house_id" required lay-verify="required" placeholder="请输入门牌号"
+                        class="layui-input">
+                </td>
+                <td class="label">住户类型</td>
+                <td>
+                    <select name="household_type" lay-verify="required" title="房主">
+                        <option value="0">房主</option>
+                        <option value="1">租主</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!-- row-2 -->
+            <tr>
+                <td class="label">管理单位地址</td>
+                <td colspan="3">
+                    <textarea name="admin_unit_address" required lay-verify="required" placeholder="请输入户籍地址"
+                        class="layui-textarea"></textarea>
+                </td>
+                <td class="label">户籍地址</td>
+                <td colspan="3">
+                    <textarea name="household_domicile_address" required lay-verify="required" placeholder="请输入户籍地址"
+                        class="layui-textarea"></textarea>
+                </td>
+                <td class="label">小区名称</td>
+                <td>
+                    <select name="subdistrict_name" lay-verify="required" title="龙王塘一号">
+                        <option value="0">龙王塘一号</option>
+                        <option value="1">中瀛臻堡</option>
+                        <option value="2">滨海家园</option>
+                        <option value="3">回迁楼</option>
+                        <option value="4">丽水佳园</option>
+                        <option value="5">隆润花园(旺家福)</option>
+                    </select>
+                </td>
+                <td class="label">户籍类型</td>
+                <td>
+                    <select name="household_domicile_type" lay-verify="required" title="居民家庭户">
+                        <option value="0">居民家庭户</option>
+                        <option value="1">非农业家庭户</option>
+                        <option value="2">农业家庭户</option>
+                        <option value="3">集体户</option>
+                        <option value="4">其他户口</option>
+                    </select>
+                </td>
+                <td class="label">房屋性质</td>
+                <td>
+                    <select name="house_type" lay-verify="required" title="商品房">
+                        <option value="0">商品房</option>
+                        <option value="1">回迁房</option>
+                        <option value="2">公建房</option>
+                        <option value="3">其他</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--  -->
+    <script>
+        $(function () {
+            // 解决option文本过长问题
+            $("select").on('change', function (evt) {
+                var tar = evt.target;
+                var checkText = $(tar).find("option:selected").text();
+                $(tar).attr("title", checkText);
+            });
+        });
+    </script>
+
+</div>
+{%endmacro%}
