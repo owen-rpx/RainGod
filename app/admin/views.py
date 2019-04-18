@@ -320,8 +320,8 @@ def analysisMgr():
 def importMgr():
     return render_template("admin/importmgr.html")
 #人员 search
-@admin.route("/renyuan/search/")
-#@admin_login_req
+@admin.route("/residentquery/",methods=['GET'])
+@admin_login_req
 def r_search():
 	name=request.args.get("rname","")
 	sfz=request.args.get("sfz","")

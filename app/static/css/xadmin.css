@@ -1,6 +1,6 @@
 @charset "utf-8";
-@import url(//layui.hcwl520.com.cn/layui-v2.4.5/css/layui.css?v=201811010202);
-/* @import url(../lib/layui/css/layui.css); */
+/* @import url(//layui.hcwl520.com.cn/layui-v2.4.5/css/layui.css?v=201811010202); */
+@import url(../js/lib/layui/css/layui.css);
 *{
     margin: 0px;
     padding: 0px;
