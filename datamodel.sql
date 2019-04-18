@@ -23,7 +23,7 @@ drop table if exists huxinxi;
 
 -- then creat the huxinx table 
 -- Add more fields if you like
-create table huxinxi(id varchar(30) primary key,
+create table huxinxi(id integer primary key autoincrement,
 roomno varchar(20),
 house_type varchar(20),
 squares float,

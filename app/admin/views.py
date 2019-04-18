@@ -4,15 +4,17 @@ import os
 import time
 import json
 from functools import wraps
+from datetime import datetime,timedelta
 from io import BytesIO
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
 from app.apps import db
 from app.admin import admin
 from flask import render_template, make_response, session, redirect, url_for, request, flash, abort
-from app.admin.forms import LoginForm, RegisterForm, wjpasswd,XiaoQuForm
+from app.admin.forms import LoginForm, RegisterForm, wjpasswd,XiaoQuForm,HuForm,LouPanForm
 from app.admin.uilt import get_verify_code
-from app.models import User,XiaoQu,RenYuan
+from app.models import User,XiaoQu,RenYuan,HuXinXi,LouPan
+
 
 def tsc():
     t = time.time()
@@ -193,14 +195,79 @@ def subdistrictmgr_change():
 @admin_login_req
 def estateMgr():
     #data={["name": "aaa", "id": "1"],["name": "aaa", "id": "1"],["name": "aaa", "id": "1"]}
-    return render_template("admin/estatemgr.html")
+    dataSet = LouPan.query.all();
+    json_list = []
+    for loupan in dataSet:
+        json_dict = {}
+        json_dict["id"] = loupan.id
+        json_dict["buildingno"] = loupan.buildingno
+        json_dict["xiaoqu_id"] = loupan.xiaoqu_id
+        json_list.append(json_dict)
+    return render_template("admin/estatemgr.html",jsonData=json_list)
+
+@admin.route("/estatemgr_change/",methods=['GET','POST'])
+@admin_login_req
+def estateMgr_change():
+    form=LouPanForm()
+    if form.validate_on_submit():
+        data = form.data
+        isExist = LouPan.query.filter_by(buildingno=data['Lou_number']).count()
+        if isExist == 1:
+            flash('添加失败')
+            return redirect(url_for("admin.estateMgr_change"))
+        loupan = LouPan(
+            buildingno=data['Lou_number'],
+            xiaoqu_id=data['xiaoqu_number']
+        )
+        db.session.add(loupan)
+        db.session.commit()
+        flash("添加成功")
+        return redirect(url_for("admin.estateMgr_change")+"?status=success")
+    return render_template("admin/estatemgr_change.html",form=form)
 
 # 户管理模块
 @admin.route("/householdmgr/")
 @admin_login_req
 def householdMgr():
-    return render_template("admin/householdmgr.html",tscv=tsc())
-
+    dataSet = HuXinXi.query.all();
+    json_list = []
+    for huxinxi in dataSet:
+        json_dict = {}
+        json_dict["id"] = huxinxi.id
+        json_dict["roomno"] = huxinxi.roomno
+        json_dict["house_type"] = huxinxi.house_type
+        json_dict["squares"] = huxinxi.squares
+        json_dict["house_by_dt"] =str(huxinxi.house_by_dt)
+        json_dict["house_cert"] = huxinxi.house_cert
+        json_dict["active"] = huxinxi.active
+        json_dict["loupan_id"] = huxinxi.loupan_id
+        json_list.append(json_dict)
+    return render_template("admin/householdmgr.html",jsonData=json_list)
+    
+@admin.route("/householdmgr_change/",methods=['GET','POST'])
+@admin_login_req
+def householdmgr_change():
+    form=HuForm()
+    if form.validate_on_submit():
+        data = form.data
+        isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno']).count()
+        if isExist == 1:
+            flash('添加失败')
+            return redirect(url_for("admin.householdmgr_change"))
+        huXinxi = HuXinXi(
+            roomno=data['huxinxiRoomno'],
+            house_type=data['huxinxiHouse_type'],
+            squares=data['huxinxiSquares'],
+            house_by_dt=datetime.strptime(data['huxinxiHouse_by_dt'], "%Y-%m-%d") ,
+            house_cert=data['huxinxiHouse_cer'],
+            active=data['huxinxiActive'],
+            loupan_id=data['huxinxiLoupan_id'],  
+        )
+        db.session.add(huXinxi)
+        db.session.commit()
+        flash("添加成功")
+        return redirect(url_for("admin.householdmgr_change")+"?status=success")
+    return render_template("admin/householdmgr_change.html",form=form)
 ## 住户管理模块
 # 新增住户
 @admin.route("/createresident/")

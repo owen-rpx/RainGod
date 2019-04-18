@@ -255,3 +255,143 @@ class XiaoQuForm(FlaskForm):
             "onclick": ""
         }
     )
+#添加楼盘
+class LouPanForm(FlaskForm):
+    Lou_number = StringField(
+        label="楼号",
+        validators=[
+            DataRequired()
+        ],
+        description="楼号",
+        render_kw={
+            "type": "text",
+            "lay-verify": "required",
+            "class": "layui-input",
+            "placeholder": "请输入楼号！",
+        }
+    )
+    xiaoqu_number = StringField(
+        label="小区编号",
+        validators=[
+            DataRequired()
+        ],
+        description="小区编号",
+        render_kw={
+            "type": "text",
+            "lay-verify": "required",
+            "class": "layui-input",
+            "placeholder": "请输入小区编号！",
+        }
+    )
+    submit = SubmitField(
+        "提交",
+        render_kw={
+            "type": "submit",
+            "lay-filter": "submit",
+            "style": "width:100px; height:30px;",
+            "onclick": "mesg()"
+        }
+    )
+
+    #添加户
+class HuForm(FlaskForm):
+    huxinxiRoomno = StringField(
+        label="房间号",
+        validators=[
+            DataRequired()
+        ],
+        description="房间号",
+        render_kw={
+            "type":"text",
+            "lay-verify":"required",
+            "class":"layui-input",
+            "placeholder":"请输入房间号！",
+        }
+    )
+    huxinxiHouse_type=StringField(
+        label="房屋类型",
+        validators=[
+            DataRequired()
+        ],
+        description="房屋类型",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入房屋类型！",
+        }
+    )
+    huxinxiSquares=StringField(
+        label="面积",
+        validators=[
+            DataRequired()
+        ],
+        description="面积",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入房屋面积！",
+        }
+    )
+    huxinxiHouse_by_dt=StringField(
+        label="购买日期",
+        validators=[
+            DataRequired()
+        ],
+        description="购买日期",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入房屋购买日期！",
+        }
+    )
+    huxinxiHouse_cer=StringField(
+        label="房屋证明",
+        validators=[
+            DataRequired()
+        ],
+        description="房屋证明",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入房屋证明！",
+        }
+    )
+    huxinxiActive=StringField(
+        label="有效",
+        validators=[
+            DataRequired()
+        ],
+        description="有效",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入是否有效！",
+        }
+    )
+    huxinxiLoupan_id=StringField(
+        label="楼盘号",
+        validators=[
+            DataRequired()
+        ],
+        description="楼盘号",
+        render_kw={
+            "type":"text",
+            "lay-verify":"requied",
+            "class":"layui-input",
+            "placeholder":"请输入楼盘号！",
+        }
+    )
+    submit = SubmitField(
+        "提交",
+        render_kw={
+            "type": "submit",
+            "lay-filter": "submit",
+            "style": "width:100px; height:30px;",
+            "onclick": "mesg()"
+        }
+    )
