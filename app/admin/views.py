@@ -185,6 +185,12 @@ def householdMgr():
 def createResident():
     return render_template("admin/createresident.html",tscv=tsc())
 
+# 编辑住户
+@admin.route("/residentedit/",methods=['GET'])
+@admin_login_req
+def residentEdit():
+    return render_template("admin/editresident.html",tscv=tsc())
+
 # 住户管理
 @admin.route("/residentmgr/")
 @admin_login_req

@@ -56,7 +56,17 @@
               } else if (data.length > 1) {
                 layer.msg('只能同时编辑一个');
               } else {
-                layer.alert('需要打开子编辑页面: [id] : ' + checkStatus.data[0].id);
+                // layer.alert('需要打开子编辑页面: [id] : ' + checkStatus.data[0].id);
+                var householdId = checkStatus.data[0].id;
+                //Ajax获取
+                $.get('/admin/residentedit', {}, function(str){
+                  layer.open({
+                    type: 1,
+                    offset: '100px',
+                    area: ['800px', '500px'],
+                    content: str //注意，如果str是object，那么需要字符拼接。
+                  });
+                });
               }
               break;
             case 'del':
