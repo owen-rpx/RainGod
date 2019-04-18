@@ -24,6 +24,7 @@ class XiaoQu(db.Model):
 	id=db.Column(db.Integer,primary_key=True, autoincrement=True)
 	name=db.Column(db.String(50),unique=True)
 	mgeaddr=db.Column(db.String(100))
+	loupans=db.relationship("LouPan",backref="xiaoqu",lazy=True)
 
 
 class LouPan(db.Model):
@@ -31,11 +32,13 @@ class LouPan(db.Model):
 	id=db.Column(db.Integer,primary_key=True, autoincrement=True)
 	buildingno=db.Column(db.String(30))
 	xiaoqu_id=db.Column(db.Integer,db.ForeignKey("xiaoqu.id"))
+	huxinxis=db.relationship("HuXinXi",backref="loupan",lazy=True)
 	
 
 class HuXinXi(db.Model):
 	__tablename__="huxinxi"
 	id=db.Column(db.Integer,primary_key=True, autoincrement=True)
+	renyuans=db.relationship("RenYuan",backref="huxinxi",lazy=True)
 	roomno=db.Column(db.String(20),nullable=False)
 	house_type=db.Column(db.String(20))
 	squares=db.Column(db.Float);
