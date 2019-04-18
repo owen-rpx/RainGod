@@ -12,7 +12,7 @@ from app.admin import admin
 from flask import render_template, make_response, session, redirect, url_for, request, flash, abort
 from app.admin.forms import LoginForm, RegisterForm, wjpasswd,XiaoQuForm
 from app.admin.uilt import get_verify_code
-from app.models import User,XiaoQu
+from app.models import User,XiaoQu,RenYuan
 
 def tsc():
     t = time.time()
@@ -252,3 +252,21 @@ def analysisMgr():
 @admin_login_req
 def importMgr():
     return render_template("admin/importmgr.html")
+#人员 search
+@admin.route("/renyuan/search/")
+#@admin_login_req
+def r_search():
+	name=request.args.get("rname","")
+	sfz=request.args.get("sfz","")
+	result="";
+	if name !="" and sfz!="":
+		result=RenYuan.query.filter(RenYuan.name==name & RenYuan.shenfenzheng==sfz)
+	elif name!="":
+		result=RenYuan.query.filter(RenYuan.name==name)
+	elif sfz!="":
+		result=RenYuan.query.filter(RenYuan.shenfenzheng==sfz)
+	else:
+		result=RenYuan.query.all()
+	tmp=json.dumps([row.as_dict() for row in result]);
+	rr={"code":0,"msg":"","count":"","data":tmp}
+	return json.dumps(rr)

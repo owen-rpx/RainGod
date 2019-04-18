@@ -32,7 +32,11 @@ class LouPan(db.Model):
 	id=db.Column(db.Integer,primary_key=True, autoincrement=True)
 	buildingno=db.Column(db.String(30))
 	xiaoqu_id=db.Column(db.Integer,db.ForeignKey("xiaoqu.id"))
+	def as_dict(self):
+                return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 	huxinxis=db.relationship("HuXinXi",backref="loupan",lazy=True)
+	def as_dict(self):
+                return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 	
 
 class HuXinXi(db.Model):
@@ -46,6 +50,8 @@ class HuXinXi(db.Model):
 	house_cert=db.Column(db.String(10))
 	active=db.Column(db.Integer,default=1)
 	loupan_id=db.Column(db.Integer,db.ForeignKey("loupan.id"))
+	def as_dict(self):
+                return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class RenYuan(db.Model):
@@ -97,3 +103,5 @@ class RenYuan(db.Model):
 	renyuan_relationship=db.Column(db.String(30))
 	active=db.Column(db.Integer,default=1)
 	hu_id=db.Column(db.Integer,db.ForeignKey("huxinxi.id"))
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}

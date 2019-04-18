@@ -16,4 +16,8 @@ if __name__=="__main__":
 	db.session.add(h)
 	db.session.commit()
 	print(h.id)	
+	r=RenYuan(name="李四",sex="男",minzu="汉",hu_id=h.id)
+	db.session.add(r)
+	db.session.commit()
+	print(r.id)
 
