@@ -12,7 +12,7 @@ from app.admin import admin
 from flask import render_template, make_response, session, redirect, url_for, request, flash, abort
 from app.admin.forms import LoginForm, RegisterForm, wjpasswd
 from app.admin.uilt import get_verify_code
-from app.models import User
+from app.models import User,XiaoQu
 
 def tsc():
     t = time.time()
@@ -155,9 +155,16 @@ def logout():
 @admin.route("/subdistrictmgr/")
 @admin_login_req
 def subdistrictMgr():
-    data=([{'id': '000001', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'}])
-    jsonData = json.dumps(data)
-    return render_template("admin/subdistrictmgr.html",jsonData=jsonData)
+    #data=([{'id': '000001', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'},{'id': '000002', 'name': 'test111','address': '喜马拉雅山'}])
+    dataSet = XiaoQu.query.all();
+    json_list = []
+    for xiaoqu in dataSet:
+        json_dict = {}
+        json_dict["id"] = xiaoqu.id
+        json_dict["name"] = xiaoqu.name
+        json_dict["mgeaddr"] = xiaoqu.mgeaddr
+        json_list.append(json_dict)
+    return render_template("admin/subdistrictmgr.html",jsonData=json_list)
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req

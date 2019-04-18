@@ -16,7 +16,7 @@
             <th lay-data="{type:'checkbox'}">ID</th>
           <th lay-data="{field:'id', width:150, sort: true}">小区编号</th>
           <th lay-data="{field:'name', width:400,sort: true}">小区名称</th>
-          <th lay-data="{field:'address', sort: true}">管理单位地址</th>
+          <th lay-data="{field:'mgeaddr', sort: true}">管理单位地址</th>
         </tr>
       </thead>
     </table>
@@ -66,7 +66,8 @@ layui.use('table', function(){
     ,data = checkStatus.data; //获取选中的数据
     switch(obj.event){
       case 'add':
-        layer.msg('添加');
+        //layer.msg('添加');
+         layer
       break;
       case 'update':
         if(data.length === 0){
