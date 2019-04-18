@@ -1,0 +1,31 @@
+{% extends "admin/bases.html" %}
+{% block content %}
+<div style="margin:20px; height: 120px;">
+  <form method="post" class="layui-form" >
+    <!--<div class="layui-form-item"><label class="layui-form-label">角色名</label><div class="layui-input-block"><input type="text" name="rolename" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input"></div></div>
+  -->
+  <div class="layui-form-item"><label class="layui-form-label">小区名称:</label><div class="layui-input-block">
+    {{form.xiaoquName}}
+  </div></div>
+  <div class="layui-form-item"><label class="layui-form-label">管理地址:</label><div class="layui-input-block">
+      {{form.xiaoquAdd}}
+    </div></div>
+    <div class="layui-form-item"><div class="layui-input-block">
+        {{ form.csrf_token }} {{form.submit}}
+    </div></div>
+
+     
+      {% for message in get_flashed_messages() %}
+      <script>
+          layui.use('layer', function() {
+              var layer = layui.layer;
+              layer.msg('{{ message }}');
+          });
+      </script>
+      {% endfor %}
+  </form>
+
+</div>
+
+
+{% endblock %}

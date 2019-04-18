@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash
 from app.apps import db
 from app.admin import admin
 from flask import render_template, make_response, session, redirect, url_for, request, flash, abort
-from app.admin.forms import LoginForm, RegisterForm, wjpasswd
+from app.admin.forms import LoginForm, RegisterForm, wjpasswd,XiaoQuForm
 from app.admin.uilt import get_verify_code
 from app.models import User,XiaoQu
 
@@ -165,6 +165,29 @@ def subdistrictMgr():
         json_dict["mgeaddr"] = xiaoqu.mgeaddr
         json_list.append(json_dict)
     return render_template("admin/subdistrictmgr.html",jsonData=json_list)
+
+    
+
+@admin.route("/subdistrictmgr_change/",methods=['GET','POST'])
+@admin_login_req
+def subdistrictmgr_change():
+    form=XiaoQuForm()
+    if form.validate_on_submit():
+        data = form.data
+        isExist = XiaoQu.query.filter_by(name=data['xiaoquName']).count()
+        if isExist == 1:
+            flash('添加失败')
+            return redirect(url_for("admin.subdistrictmgr_change"))
+        xiaoqu = XiaoQu(
+            name=data['xiaoquName'],
+            mgeaddr=data['xiaoquAdd'],
+        )
+        db.session.add(xiaoqu)
+        db.session.commit()
+        flash("添加成功")
+        return redirect(url_for("admin.subdistrictmgr_change"))
+    return render_template("admin/subdistrictmgr_change.html",form=form)
+
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req

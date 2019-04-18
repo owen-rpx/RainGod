@@ -215,3 +215,43 @@ class wjpasswd(FlaskForm):
             "lay-filter": "subm",
         }
     )
+
+
+
+#添加小区
+class XiaoQuForm(FlaskForm):
+    xiaoquName = StringField(
+        label="小区名称",
+        validators=[
+            DataRequired()
+        ],
+        description="小区名称",
+        render_kw={
+            "type": "text",
+            "lay-verify": "required",
+            "class": "layui-input",
+            "placeholder": "请输入小区名称！",
+        }
+    )
+    xiaoquAdd= StringField(
+        label="管理地址",
+        validators=[
+            DataRequired()
+        ],
+        description="管理地址",
+        render_kw={
+            "type": "text",
+            "lay-verify": "required",
+            "class": "layui-input",
+            "placeholder": "请输入管理地址！",
+        }
+    )
+    submit = SubmitField(
+        "提交",
+        render_kw={
+            "type": "submit",
+            "lay-filter": "submit",
+            "style": "width:100px; height:30px;",
+            "onclick": "mesg()"
+        }
+    )
