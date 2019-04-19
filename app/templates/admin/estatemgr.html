@@ -3,7 +3,7 @@
 
 {% block content %}
 
-
+<script type="text/javascript" src="{{url_for('static',filename='js/lib/layui/layui.js',tsc=tscv)}}"></script>
 <div class="x-body">
   <div class="layui-row">
     <!-- <p>楼盘信息管理页面</p> -->
@@ -13,9 +13,10 @@
       <thead>
         <tr>
             <th lay-data="{type:'checkbox'}">ID</th>
-          <th lay-data="{field:'id', width:150, sort: true}">户编号</th>
+          <th lay-data="{field:'id', width:150, sort: true}">ID</th>
           <th lay-data="{field:'buildingno', width:150,sort: true}">楼号</th>
-          <th lay-data="{field:'xiaoqu_id', sort: true}">小区编号</th>
+          <th lay-data="{field:'xiaoqu_id', sort: true}">小区名称</th>
+          
         </tr>
       </thead>
     </table>
@@ -34,7 +35,6 @@
 
   </div>
 </div>
-<script type="text/javascript" src="//layui.hcwl520.com.cn/layui-v2.4.5/layui.js?v=201811010202" charset="utf-8"></script>
     <script>
       console.log($('#testdata').val());
 layui.use('table', function(){
@@ -49,7 +49,7 @@ layui.use('table', function(){
               title: '楼盘管理',
               type: 2,
               skin: 'layui-layer-rim', //加上边框
-              area: ['40%', '50%'], //宽高
+              area: ['500px', '300px'], //宽高
               content: ['/admin/estatemgr_change','no'], //弹出的页面
               shadeClose: true, //点击遮罩关闭
               // success: function (layero, index) {

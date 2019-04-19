@@ -1,14 +1,15 @@
 {% extends "admin/bases.html" %}
 {% block content %}
+<script type="text/javascript" src="{{url_for('static',filename='js/lib/layui/layui.js',tsc=tscv)}}"></script>
 <div style="margin:20px; height: 120px;">
   <form method="post" class="layui-form" >
-  <div class="layui-form-item"><label class="layui-form-label">楼编号:</label><div class="layui-input-block">
+  <div class="layui-form-item"><label class="layui-form-label">小区名称:</label><div class="layui-input-block">
+      {{form.xiaoqu_option}}
+    </div></div>
+    <div class="layui-form-item"><label class="layui-form-label">楼号:</label><div class="layui-input-block">
       {{form.Lou_number}}
     </div></div>
-  <div class="layui-form-item"><label class="layui-form-label">小区编号:</label><div class="layui-input-block">
-      {{form.xiaoqu_number}}
-    </div></div>
-    <div class="layui-form-item"><div class="layui-input-block">
+    <div class="layui-form-item"><div class="layui-input-block" style="text-align:center">
         {{ form.csrf_token }} {{form.submit}}
     </div></div>
 

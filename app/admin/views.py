@@ -177,8 +177,8 @@ def subdistrictmgr_change():
     if form.validate_on_submit():
         data = form.data
         isExist = XiaoQu.query.filter_by(name=data['xiaoquName']).count()
-        if isExist == 1:
-            flash('添加失败')
+        if isExist >0:
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.subdistrictmgr_change"))
         xiaoqu = XiaoQu(
             name=data['xiaoquName'],
@@ -201,23 +201,23 @@ def estateMgr():
         json_dict = {}
         json_dict["id"] = loupan.id
         json_dict["buildingno"] = loupan.buildingno
-        json_dict["xiaoqu_id"] = loupan.xiaoqu_id
+        json_dict["xiaoqu_id"] = loupan.xiaoqu.name
         json_list.append(json_dict)
     return render_template("admin/estatemgr.html",jsonData=json_list)
 
 @admin.route("/estatemgr_change/",methods=['GET','POST'])
 @admin_login_req
 def estateMgr_change():
-    form=LouPanForm()
+    form=LouPanForm(XiaoQu)
     if form.validate_on_submit():
         data = form.data
-        isExist = LouPan.query.filter_by(buildingno=data['Lou_number']).count()
-        if isExist == 1:
-            flash('添加失败')
+        isExist = LouPan.query.filter_by(buildingno=data['Lou_number'],xiaoqu_id=data['xiaoqu_option']).count()
+        if isExist > 0:
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.estateMgr_change"))
         loupan = LouPan(
             buildingno=data['Lou_number'],
-            xiaoqu_id=data['xiaoqu_number']
+            xiaoqu_id=data['xiaoqu_option']
         )
         db.session.add(loupan)
         db.session.commit()
@@ -238,21 +238,22 @@ def householdMgr():
         json_dict["house_type"] = huxinxi.house_type
         json_dict["squares"] = huxinxi.squares
         json_dict["house_by_dt"] =str(huxinxi.house_by_dt)
-        json_dict["house_cert"] = huxinxi.house_cert
-        json_dict["active"] = huxinxi.active
-        json_dict["loupan_id"] = huxinxi.loupan_id
+        json_dict["house_cert"] = "有证" if huxinxi.house_cert=="1" else "无证"
+        json_dict["active"] = "有效" if huxinxi.active else "无效"
+        json_dict["loupan_id"] = huxinxi.loupan.buildingno
+        json_dict["xiaoqu_id"] = huxinxi.loupan.xiaoqu.name
         json_list.append(json_dict)
     return render_template("admin/householdmgr.html",jsonData=json_list)
     
 @admin.route("/householdmgr_change/",methods=['GET','POST'])
 @admin_login_req
 def householdmgr_change():
-    form=HuForm()
+    form=HuForm(LouPan)
     if form.validate_on_submit():
         data = form.data
-        isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno']).count()
-        if isExist == 1:
-            flash('添加失败')
+        isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno'],loupan_id=data['loupan_option']).count()
+        if isExist >0:
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.householdmgr_change"))
         huXinxi = HuXinXi(
             roomno=data['huxinxiRoomno'],
@@ -260,8 +261,8 @@ def householdmgr_change():
             squares=data['huxinxiSquares'],
             house_by_dt=datetime.strptime(data['huxinxiHouse_by_dt'], "%Y-%m-%d") ,
             house_cert=data['huxinxiHouse_cer'],
-            active=data['huxinxiActive'],
-            loupan_id=data['huxinxiLoupan_id'],  
+            active=1,
+            loupan_id=data['loupan_option'],  
         )
         db.session.add(huXinxi)
         db.session.commit()
@@ -325,7 +326,7 @@ def importMgr():
 def r_search():
 	name=request.args.get("rname","")
 	sfz=request.args.get("sfz","")
-	result="";
+	result=[];
 	if name !="" and sfz!="":
 		result=RenYuan.query.filter(RenYuan.name==name & RenYuan.shenfenzheng==sfz)
 	elif name!="":
@@ -334,18 +335,18 @@ def r_search():
 		result=RenYuan.query.filter(RenYuan.shenfenzheng==sfz)
 	else:
 		result=RenYuan.query.all()
-	tmp=json.dumps([row.as_dict() for row in result]);
-	rr={"code":0,"msg":"","count":"","data":tmp}
+	d_result=json.dumps([row.as_dict() for row in result]);
+	rr={"code":0,"msg":"","count":"","data":d_result}
 	return json.dumps(rr)
 @admin.route("/xiao_lou")
 def  get_xiaoqu_loupan():
         xqs=XiaoQu.query.all()
         result=[]
-        for i in xqs:
-                r=i.as_dict()
+        for xiaoqu in xqs:
+                r=xiaoqu.as_dict()
                 t=[]
-                for j in i.loupans:
-                        t.append(j.as_dict())
+                for loupan in xiaoqu.loupans:
+                        t.append(loupan.as_dict())
                 r["loupans"]=t
                 result.append(r)
         rr={"code":0,"msg":"","count":"","data":result}

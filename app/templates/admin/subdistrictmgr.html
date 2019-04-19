@@ -1,8 +1,7 @@
 {% extends "admin/bases.html" %}
 <!-- {% import "admin/fy.html" as pg %} -->
-
 {% block content %}
-
+<script type="text/javascript" src="{{url_for('static',filename='js/lib/layui/layui.js',tsc=tscv)}}"></script>
 
 <div class="x-body">
   <div class="layui-row">
@@ -16,7 +15,7 @@
             <th lay-data="{type:'checkbox'}">ID</th>
           <th lay-data="{field:'id', width:150, sort: true}">小区编号</th>
           <th lay-data="{field:'name', width:400,sort: true}">小区名称</th>
-          <th lay-data="{field:'mgeaddr', sort: true}">管理单位地址</th>
+          <th lay-data="{field:'mgeaddr', sort: true}">管理员</th>
         </tr>
       </thead>
     </table>
@@ -36,8 +35,7 @@
   </div>
 <div>
 
-    <script type="text/javascript" src="//layui.hcwl520.com.cn/layui-v2.4.5/layui.js?v=201811010202" charset="utf-8"></script>
-    <script>
+ <script>
       console.log($('#testdata').val());
 layui.use('table', function(){
   var table = layui.table;
@@ -51,7 +49,7 @@ layui.use('table', function(){
             title: '小区维护',
             type: 2,
             skin: 'layui-layer-rim', //加上边框
-            area: ['40%', '50%'], //宽高
+            area: ['500px', '300px'], //宽高
             content: ['/admin/subdistrictmgr_change','no'], //弹出的页面
             shadeClose: true, //点击遮罩关闭
             // success: function (layero, index) {
@@ -99,7 +97,18 @@ layui.use('table', function(){
       layer.confirm('真的删除行么', function(index){
         obj.del(); //删除对应行（tr）的DOM结构
         layer.close(index);
-        //向服务端发送删除指令
+        $.ajax({  
+        type:'get',
+        url:urlStr,
+        data:serialStr,  
+        success:function(code){  
+            if  (code ==0) {  
+                layer.msg('添加成功!',{icon:1,time:1000});
+            }else{  
+                layer.msg('添加失败!',{icon:2,time:1000});
+            }
+        }
+    });
       });
     } else if(layEvent === 'edit'){
       layer.msg('编辑操作');
