@@ -329,7 +329,7 @@ def importMgr():
 def r_search():
 	name=request.args.get("rname","")
 	sfz=request.args.get("sfz","")
-	result="";
+	result=[];
 	if name !="" and sfz!="":
 		result=RenYuan.query.filter(RenYuan.name==name & RenYuan.shenfenzheng==sfz)
 	elif name!="":
@@ -338,18 +338,18 @@ def r_search():
 		result=RenYuan.query.filter(RenYuan.shenfenzheng==sfz)
 	else:
 		result=RenYuan.query.all()
-	tmp=json.dumps([row.as_dict() for row in result]);
-	rr={"code":0,"msg":"","count":"","data":tmp}
+	d_result=json.dumps([row.as_dict() for row in result]);
+	rr={"code":0,"msg":"","count":"","data":d_result}
 	return json.dumps(rr)
 @admin.route("/xiao_lou")
 def  get_xiaoqu_loupan():
         xqs=XiaoQu.query.all()
         result=[]
-        for i in xqs:
-                r=i.as_dict()
+        for xiaoqu in xqs:
+                r=xiaoqu.as_dict()
                 t=[]
-                for j in i.loupans:
-                        t.append(j.as_dict())
+                for loupan in xiaoqu.loupans:
+                        t.append(loupan.as_dict())
                 r["loupans"]=t
                 result.append(r)
         rr={"code":0,"msg":"","count":"","data":result}
