@@ -3,6 +3,7 @@
 import os
 import time
 import json
+import datetime
 from functools import wraps
 from datetime import datetime,timedelta
 from io import BytesIO
@@ -190,19 +191,6 @@ def subdistrictmgr_change():
         return redirect(url_for("admin.subdistrictmgr_change")+"?status=success")
     return render_template("admin/subdistrictmgr_change.html",form=form)
 
-@admin.route("/subdistrictmgr_delete/<sid>",methods=['GET','POST'])
-@admin_login_req
-def subdistrictmgr_delete(sid):
-    isExist = XiaoQu.query.filter_by(id=sid).count()
-    if isExist ==0:
-        rr={"status":"已存在"}
-        return redirect(url_for("admin.subdistrictmgr"))
-    xiaoqu = XiaoQu.query.filter_by(id=sid).first()
-    db.session.delete(xiaoqu)
-    db.session.commit()
-    rr={"status":"OK"}
-    return json.dumps(rr)
-
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req
@@ -237,19 +225,6 @@ def estateMgr_change():
         flash("添加成功")
         return redirect(url_for("admin.estateMgr_change")+"?status=success")
     return render_template("admin/estatemgr_change.html",form=form)
-
-@admin.route("/estatemgr_delete/<sid>",methods=['GET','POST'])
-@admin_login_req
-def estatemgr_delete(sid):
-    isExist = LouPan.query.filter_by(id=sid).count()
-    if isExist ==0:
-        rr={"status":"已存在"}
-        return redirect(url_for("admin.subdistrictmgr"))
-    loupan = LouPan.query.filter_by(id=sid).first()
-    db.session.delete(loupan)
-    db.session.commit()
-    rr={"status":"OK"}
-    return json.dumps(rr)
 
 # 户管理模块
 @admin.route("/householdmgr/")
@@ -295,20 +270,6 @@ def householdmgr_change():
         flash("添加成功")
         return redirect(url_for("admin.householdmgr_change")+"?status=success")
     return render_template("admin/householdmgr_change.html",form=form)
-
-@admin.route("/householdmgr_delete/<sid>",methods=['GET','POST'])
-@admin_login_req
-def householdmgr_delete(sid):
-    isExist = HuXinXi.query.filter_by(id=sid).count()
-    if isExist ==0:
-        rr={"status":"已存在"}
-        return redirect(url_for("admin.subdistrictmgr"))
-    huxinxi = HuXinXi.query.filter_by(id=sid).first()
-    db.session.delete(huxinxi)
-    db.session.commit()
-    rr={"status":"OK"}
-    return json.dumps(rr)
-
 ## 住户管理模块
 # 新增住户
 @admin.route("/createresident/")
@@ -317,9 +278,9 @@ def createResident():
     return render_template("admin/createresident.html",tscv=tsc())
 
 # 编辑住户
-@admin.route("/residentedit/",methods=['GET'])
+@admin.route("/residentedit/<int:id>",methods=['GET'])
 @admin_login_req
-def residentEdit():
+def residentEdit(id):
     return render_template("admin/editresident.html",tscv=tsc())
 
 # 住户管理
@@ -366,6 +327,7 @@ def importMgr():
 def r_search():
 	name=request.args.get("rname","")
 	sfz=request.args.get("sfz","")
+	
 	result=[];
 	if name !="" and sfz!="":
 		result=RenYuan.query.filter(RenYuan.name==name & RenYuan.shenfenzheng==sfz)
@@ -375,9 +337,24 @@ def r_search():
 		result=RenYuan.query.filter(RenYuan.shenfenzheng==sfz)
 	else:
 		result=RenYuan.query.all()
-	d_result=json.dumps([row.as_dict() for row in result]);
+	d_result=[row.as_dict() for row in result];
 	rr={"code":0,"msg":"","count":"","data":d_result}
 	return json.dumps(rr)
+
+
+#人员 search id
+@admin.route("/residenteidtid/<int:id>",methods=['GET'])
+@admin_login_req
+def r_search_id(id):	
+    result=[];
+    result=RenYuan.query.filter(RenYuan.id==id)
+    d_result=[row.as_dict() for row in result];
+    rr={"code":0,"msg":"","count":"","data":d_result}
+    # return json.dumps(rr)
+    jsonData = json.dumps(rr)
+    return render_template("admin/editresident.html",tscv=tsc(),jsonData=jsonData)
+
+
 @admin.route("/xiao_lou")
 def  get_xiaoqu_loupan():
         xqs=XiaoQu.query.all()
@@ -392,3 +369,82 @@ def  get_xiaoqu_loupan():
         rr={"code":0,"msg":"","count":"","data":result}
         return json.dumps(rr)
 
+
+@admin.route("/insertresident", methods=['POST'])
+# @admin_login_req
+def insertResident():
+    data = request.get_json()
+    print(len(data))
+    # print(data[0]['birthday'])
+    try:
+        for item in data:
+            r = RenYuan()
+            if(item['name'] != ""):
+                r.name = item['name']
+            r.sex = item['sex']
+            r.minzu = item['minzu']
+            r.wenhua = item['wenhua']
+            r.hukou_type = item['hukou_type']
+            r.zhengzhi_mianmao = item['zhengzhi_mianmao']
+            if(item['join_party_dt'] != ''):
+                r.join_party_dt = datetime.strptime(
+                    item['join_party_dt'], '%Y-%m-%d').date()
+            r.belief = item['belief']
+            r.huji_addr = item['huji_addr']
+            if(item['huji_in_dt'] != ''):
+                r.huji_in_dt = datetime.strptime(
+                    item['huji_in_dt'], '%Y-%m-%d').date()
+            if(item['huji_out_dt'] != ''):
+                    r.huji_out_dt = datetime.strptime(
+                        item['huji_out_dt'], '%Y-%m-%d').date()
+            if(item['birthday'] != ''):
+                    birthday = datetime.strptime(
+                        item['birthday'], '%Y-%m-%d').date()
+            r.shenfenzheng = item['shenfenzheng']
+            r.phone = item['phone']
+            r.work_addr_title = item['work_addr_title']
+            r.juzhu_zhuangtai = item['juzhu_zhuangtai']
+            r.yibao_qingkuang = item['yibao_qingkuang']
+            r.yanglao_baoxian = item['yanglao_baoxian']
+            r.jiuye_yixiang = item['jiuye_yixiang']
+            r.married_status = item['married_status']
+            if(item['married_dt'] != ''):
+                r.married_dt = datetime.strptime(
+                    item['married_dt'], '%Y-%m-%d').date()
+            r.dusheng_zinv = item['dusheng_zinv']
+            r.dusheng_zinv_id = item['dusheng_zinv_id']
+            if(item['dusheng_zinv_dt'] != ''):
+                r.dusheng_zinv_dt = datetime.strptime(
+                    item['dusheng_zinv_dt'], '%Y-%m-%d').date()
+            r.jieyu_cuoshi = item['jieyu_cuoshi']
+            r.plan_more_child = item['plan_more_child']
+            r.renkou_type = item['renkou_type']
+            r.has_car = item['has_car']
+            r.is_dibao = item['is_dibao']
+            r.is_kongchao = item['is_kongchao']
+            r.is_duju = item['is_duju']
+            r.is_lichao = item['is_lichao']
+            r.join_community_management = item['join_community_management']
+            r.join_community_activity = item['join_community_activity']
+            r.join_comminity_volunteer = item['join_comminity_volunteer']
+            r.join_party = item['join_party']
+            r.has_dog = item['has_dog']
+            if(item['ruzhu_dt'] != ''):
+                r.ruzhu_dt = datetime.strptime(item['ruzhu_dt'], '%Y-%m-%d').date()
+            if(item['ruhu_dt'] != ''):
+                r.ruhu_dt = datetime.strptime(item['ruhu_dt'], '%Y-%m-%d').date()
+            r.suggestion = item['suggestion']
+            r.comment = item['comment']
+            r.renyuan_type = item['renyuan_type']
+            r.renyuan_relationship = item['renyuan_relationship']
+            if(item['hu_id']!=''):
+                r.hu_id = int(item['hu_id'])
+            r.active = 1
+            # 
+            db.session.add(r)
+        db.session.commit()
+    except:
+            db.session.rollback()
+            db.session.flush()
+    rr={"code": 0, "msg": "ok", "count": "", "data": []}
+    return json.dumps(rr)

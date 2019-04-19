@@ -171,6 +171,7 @@ $(function () {
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log(data);
+                window.location.href='/admin/residentmgr'
             },
             error: function (err) {
                 console.log(err);
