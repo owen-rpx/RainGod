@@ -1,10 +1,14 @@
 {% extends "admin/bases.html" %}
 {% block content %}
+<script type="text/javascript" src="{{url_for('static',filename='js/lib/layui/layui.js',tsc=tscv)}}"></script>
 <div style="margin:20px; height: 200px;">
   <form method="post" class="layui-form" >
     <!--<div class="layui-form-item"><label class="layui-form-label">角色名</label><div class="layui-input-block"><input type="text" name="rolename" required  lay-verify="required" placeholder="请输入角色名" autocomplete="off" class="layui-input"></div></div>
   -->
-  <div class="layui-form-item"><label class="layui-form-label">房间号:</label><div class="layui-input-block">
+  <div class="layui-form-item"><label class="layui-form-label">楼盘:</label><div class="layui-input-block">
+    {{form.loupan_option}}
+  </div></div>
+  <div class="layui-form-item"><label class="layui-form-label">房屋号:</label><div class="layui-input-block">
     {{form.huxinxiRoomno}}
   </div></div>
   <div class="layui-form-item"><label class="layui-form-label">房屋类型:</label><div class="layui-input-block">
@@ -19,12 +23,7 @@
       <div class="layui-form-item"><label class="layui-form-label">房屋证明:</label><div class="layui-input-block">
         {{form.huxinxiHouse_cer}}
       </div></div>
-      <div class="layui-form-item"><label class="layui-form-label">有效:</label><div class="layui-input-block">
-        {{form.huxinxiActive}}
-      </div></div>
-      <div class="layui-form-item"><label class="layui-form-label">楼盘号:</label><div class="layui-input-block">
-        {{form.huxinxiLoupan_id}}
-      </div></div>
+
     <div class="layui-form-item"><div class="layui-input-block">
         {{ form.csrf_token }} {{form.submit}}
     </div></div>
@@ -52,6 +51,14 @@
          parent.layer.close(0);//关闭弹出层
         },500)
       }
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //常规用法
+        laydate.render({
+          elem: '#huxinxiHouse_by_dt'
+        });
+      });
  </script>
 </div>
 

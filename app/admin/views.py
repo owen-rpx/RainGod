@@ -178,7 +178,7 @@ def subdistrictmgr_change():
         data = form.data
         isExist = XiaoQu.query.filter_by(name=data['xiaoquName']).count()
         if isExist == 1:
-            flash('添加失败')
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.subdistrictmgr_change"))
         xiaoqu = XiaoQu(
             name=data['xiaoquName'],
@@ -208,16 +208,16 @@ def estateMgr():
 @admin.route("/estatemgr_change/",methods=['GET','POST'])
 @admin_login_req
 def estateMgr_change():
-    form=LouPanForm()
+    form=LouPanForm(XiaoQu)
     if form.validate_on_submit():
         data = form.data
         isExist = LouPan.query.filter_by(buildingno=data['Lou_number']).count()
         if isExist == 1:
-            flash('添加失败')
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.estateMgr_change"))
         loupan = LouPan(
             buildingno=data['Lou_number'],
-            xiaoqu_id=data['xiaoqu_number']
+            xiaoqu_id=data['xiaoqu_option']
         )
         db.session.add(loupan)
         db.session.commit()
@@ -239,7 +239,7 @@ def householdMgr():
         json_dict["squares"] = huxinxi.squares
         json_dict["house_by_dt"] =str(huxinxi.house_by_dt)
         json_dict["house_cert"] = huxinxi.house_cert
-        json_dict["active"] = huxinxi.active
+        json_dict["active"] = 1
         json_dict["loupan_id"] = huxinxi.loupan_id
         json_list.append(json_dict)
     return render_template("admin/householdmgr.html",jsonData=json_list)
@@ -247,7 +247,7 @@ def householdMgr():
 @admin.route("/householdmgr_change/",methods=['GET','POST'])
 @admin_login_req
 def householdmgr_change():
-    form=HuForm()
+    form=HuForm(LouPan)
     if form.validate_on_submit():
         data = form.data
         isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno']).count()
@@ -261,7 +261,7 @@ def householdmgr_change():
             house_by_dt=datetime.strptime(data['huxinxiHouse_by_dt'], "%Y-%m-%d") ,
             house_cert=data['huxinxiHouse_cer'],
             active=data['huxinxiActive'],
-            loupan_id=data['huxinxiLoupan_id'],  
+            loupan_id=data['loupan_option'],  
         )
         db.session.add(huXinxi)
         db.session.commit()

@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, FloatField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, FloatField, IntegerField,RadioField
 from wtforms.validators import DataRequired
 from app.models import User
+from app.models import User,XiaoQu,RenYuan,HuXinXi,LouPan
 
 
 # 登陆表单
@@ -234,7 +235,7 @@ class XiaoQuForm(FlaskForm):
         }
     )
     xiaoquAdd= StringField(
-        label="管理地址",
+        label="管理员",
         validators=[
             DataRequired()
         ],
@@ -243,7 +244,7 @@ class XiaoQuForm(FlaskForm):
             "type": "text",
             "lay-verify": "required",
             "class": "layui-input",
-            "placeholder": "请输入管理地址！",
+            "placeholder": "请输入管理员！",
         }
     )
     submit = SubmitField(
@@ -270,18 +271,19 @@ class LouPanForm(FlaskForm):
             "placeholder": "请输入楼号！",
         }
     )
-    xiaoqu_number = StringField(
-        label="小区编号",
-        validators=[
-            DataRequired()
-        ],
-        description="小区编号",
+    xiaoqu_option = SelectField(
+        label="小区名称",
+        description="小区名称",
+        validators=[DataRequired('请选择小区')],
         render_kw={
             "type": "text",
             "lay-verify": "required",
             "class": "layui-input",
             "placeholder": "请输入小区编号！",
-        }
+        },
+        choices=[],
+        default=0,
+        coerce=int
     )
     submit = SubmitField(
         "提交",
@@ -292,34 +294,38 @@ class LouPanForm(FlaskForm):
             "onclick": "mesg()"
         }
     )
-
+    def __init__(self, xiaoQu, *args, **kwargs):
+        super(LouPanForm, self).__init__(*args, **kwargs)
+        self.xiaoqu_option.choices = [(xiaoqu_option.id, xiaoqu_option.name)
+            for xiaoqu_option in xiaoQu.query.order_by(xiaoQu.id).all()]
+        self.xiaoQu = xiaoQu
     #添加户
 class HuForm(FlaskForm):
     huxinxiRoomno = StringField(
-        label="房间号",
+        label="房屋编号",
         validators=[
             DataRequired()
         ],
-        description="房间号",
+        description="房屋编号",
         render_kw={
             "type":"text",
             "lay-verify":"required",
             "class":"layui-input",
-            "placeholder":"请输入房间号！",
+            "placeholder":"请输入房屋编号！",
         }
     )
-    huxinxiHouse_type=StringField(
+    huxinxiHouse_type=SelectField(
         label="房屋类型",
-        validators=[
-            DataRequired()
-        ],
         description="房屋类型",
+        validators=[DataRequired('请选择房屋类型')],
         render_kw={
-            "type":"text",
-            "lay-verify":"requied",
-            "class":"layui-input",
-            "placeholder":"请输入房屋类型！",
-        }
+            "lay-verify": "required",
+            "placeholder": "请输入房屋类型！",
+        },
+        choices=[('商品房', '商品房'),('回迁房', '回迁房'),('公建房', '公建房'),('其它', '其它')],
+        default=0,
+        coerce=str
+        
     )
     huxinxiSquares=StringField(
         label="面积",
@@ -347,44 +353,35 @@ class HuForm(FlaskForm):
             "placeholder":"请输入房屋购买日期！",
         }
     )
-    huxinxiHouse_cer=StringField(
+    huxinxiHouse_cer=RadioField(
         label="房屋证明",
         validators=[
             DataRequired()
         ],
         description="房屋证明",
         render_kw={
-            "type":"text",
-            "lay-verify":"requied",
-            "class":"layui-input",
+            "class":"layui-radio",
             "placeholder":"请输入房屋证明！",
-        }
+        },
+        choices=[('0', '未取得产权证'),('1', '已取得产权证')],
+        default=0,
+        coerce=int
     )
-    huxinxiActive=StringField(
-        label="有效",
+    loupan_option=SelectField(
+        label="楼盘",
         validators=[
             DataRequired()
         ],
-        description="有效",
+        description="楼盘",
         render_kw={
             "type":"text",
             "lay-verify":"requied",
             "class":"layui-input",
-            "placeholder":"请输入是否有效！",
-        }
-    )
-    huxinxiLoupan_id=StringField(
-        label="楼盘号",
-        validators=[
-            DataRequired()
-        ],
-        description="楼盘号",
-        render_kw={
-            "type":"text",
-            "lay-verify":"requied",
-            "class":"layui-input",
-            "placeholder":"请输入楼盘号！",
-        }
+            "placeholder":"请选择楼盘",
+        },
+        choices=[],
+        default=0,
+        coerce=str
     )
     submit = SubmitField(
         "提交",
@@ -395,3 +392,8 @@ class HuForm(FlaskForm):
             "onclick": "mesg()"
         }
     )
+    def __init__(self, loupan, *args, **kwargs):
+        super(HuForm, self).__init__(*args, **kwargs)
+        self.loupan_option.choices = [(loupan_option.id, loupan_option.buildingno)
+        for loupan_option in loupan.query.order_by(loupan.id).all()]
+        self.loupan = loupan
