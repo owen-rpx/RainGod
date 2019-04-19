@@ -337,3 +337,17 @@ def r_search():
 	tmp=json.dumps([row.as_dict() for row in result]);
 	rr={"code":0,"msg":"","count":"","data":tmp}
 	return json.dumps(rr)
+@admin.route("/xiao_lou")
+def  get_xiaoqu_loupan():
+        xqs=XiaoQu.query.all()
+        result=[]
+        for i in xqs:
+                r=i.as_dict()
+                t=[]
+                for j in i.loupans:
+                        t.append(j.as_dict())
+                r["loupans"]=t
+                result.append(r)
+        rr={"code":0,"msg":"","count":"","data":result}
+        return json.dumps(rr)
+
