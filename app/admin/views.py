@@ -190,6 +190,19 @@ def subdistrictmgr_change():
         return redirect(url_for("admin.subdistrictmgr_change")+"?status=success")
     return render_template("admin/subdistrictmgr_change.html",form=form)
 
+@admin.route("/subdistrictmgr_delete/<sid>",methods=['GET','POST'])
+@admin_login_req
+def subdistrictmgr_delete(sid):
+    isExist = XiaoQu.query.filter_by(id=sid).count()
+    if isExist ==0:
+        rr={"status":"已存在"}
+        return redirect(url_for("admin.subdistrictmgr"))
+    xiaoqu = XiaoQu.query.filter_by(id=sid).first()
+    db.session.delete(xiaoqu)
+    db.session.commit()
+    rr={"status":"OK"}
+    return json.dumps(rr)
+
 # 楼盘管理
 @admin.route("/estatemgr/")
 @admin_login_req
@@ -224,6 +237,19 @@ def estateMgr_change():
         flash("添加成功")
         return redirect(url_for("admin.estateMgr_change")+"?status=success")
     return render_template("admin/estatemgr_change.html",form=form)
+
+@admin.route("/estatemgr_delete/<sid>",methods=['GET','POST'])
+@admin_login_req
+def estatemgr_delete(sid):
+    isExist = LouPan.query.filter_by(id=sid).count()
+    if isExist ==0:
+        rr={"status":"已存在"}
+        return redirect(url_for("admin.subdistrictmgr"))
+    loupan = LouPan.query.filter_by(id=sid).first()
+    db.session.delete(loupan)
+    db.session.commit()
+    rr={"status":"OK"}
+    return json.dumps(rr)
 
 # 户管理模块
 @admin.route("/householdmgr/")
@@ -269,6 +295,20 @@ def householdmgr_change():
         flash("添加成功")
         return redirect(url_for("admin.householdmgr_change")+"?status=success")
     return render_template("admin/householdmgr_change.html",form=form)
+
+@admin.route("/householdmgr_delete/<sid>",methods=['GET','POST'])
+@admin_login_req
+def householdmgr_delete(sid):
+    isExist = HuXinXi.query.filter_by(id=sid).count()
+    if isExist ==0:
+        rr={"status":"已存在"}
+        return redirect(url_for("admin.subdistrictmgr"))
+    huxinxi = HuXinXi.query.filter_by(id=sid).first()
+    db.session.delete(huxinxi)
+    db.session.commit()
+    rr={"status":"OK"}
+    return json.dumps(rr)
+
 ## 住户管理模块
 # 新增住户
 @admin.route("/createresident/")
