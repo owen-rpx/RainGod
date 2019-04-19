@@ -25,6 +25,8 @@ class XiaoQu(db.Model):
 	name=db.Column(db.String(50),unique=True)
 	mgeaddr=db.Column(db.String(100))
 	loupans=db.relationship("LouPan",backref="xiaoqu",lazy=True)
+	def as_dict(self):
+                return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class LouPan(db.Model):
