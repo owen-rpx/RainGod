@@ -211,7 +211,7 @@ def estateMgr_change():
     form=LouPanForm(XiaoQu)
     if form.validate_on_submit():
         data = form.data
-        isExist = LouPan.query.filter_by(buildingno=data['Lou_number']).count()
+        isExist = LouPan.query.filter_by(buildingno=data['Lou_number'],xiaoqu_id=data['xiaoqu_option']).count()
         if isExist > 0:
             flash('添加失败,已存在!')
             return redirect(url_for("admin.estateMgr_change"))
@@ -249,14 +249,11 @@ def householdMgr():
 @admin_login_req
 def householdmgr_change():
     form=HuForm(LouPan)
-    print(form.data)
     if form.validate_on_submit():
         data = form.data
-        print("ssssssssssss")
-        isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno']).count()
-        print(isExist)
+        isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno'],loupan_id=data['loupan_option']).count()
         if isExist >0:
-            flash('添加失败')
+            flash('添加失败,已存在!')
             return redirect(url_for("admin.householdmgr_change"))
         huXinxi = HuXinXi(
             roomno=data['huxinxiRoomno'],

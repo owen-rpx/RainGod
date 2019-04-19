@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
-
+import time
+from datetime import datetime,timedelta
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField, FloatField, IntegerField,RadioField
 from wtforms.validators import DataRequired
@@ -351,7 +352,8 @@ class HuForm(FlaskForm):
             "lay-verify":"requied",
             "class":"layui-input",
             "placeholder":"请输入房屋购买日期！",
-        }
+        },
+        default=datetime.strftime(datetime.now(),"%Y-%m-%d"),
     )
     huxinxiHouse_cer=RadioField(
         label="房屋证明",
