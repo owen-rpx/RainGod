@@ -177,7 +177,7 @@ def subdistrictmgr_change():
     if form.validate_on_submit():
         data = form.data
         isExist = XiaoQu.query.filter_by(name=data['xiaoquName']).count()
-        if isExist == 1:
+        if isExist >0:
             flash('添加失败,已存在!')
             return redirect(url_for("admin.subdistrictmgr_change"))
         xiaoqu = XiaoQu(
@@ -201,7 +201,7 @@ def estateMgr():
         json_dict = {}
         json_dict["id"] = loupan.id
         json_dict["buildingno"] = loupan.buildingno
-        json_dict["xiaoqu_id"] = loupan.xiaoqu_id
+        json_dict["xiaoqu_id"] = loupan.xiaoqu.name
         json_list.append(json_dict)
     return render_template("admin/estatemgr.html",jsonData=json_list)
 
@@ -212,7 +212,7 @@ def estateMgr_change():
     if form.validate_on_submit():
         data = form.data
         isExist = LouPan.query.filter_by(buildingno=data['Lou_number']).count()
-        if isExist == 1:
+        if isExist > 0:
             flash('添加失败,已存在!')
             return redirect(url_for("admin.estateMgr_change"))
         loupan = LouPan(
@@ -238,9 +238,10 @@ def householdMgr():
         json_dict["house_type"] = huxinxi.house_type
         json_dict["squares"] = huxinxi.squares
         json_dict["house_by_dt"] =str(huxinxi.house_by_dt)
-        json_dict["house_cert"] = huxinxi.house_cert
-        json_dict["active"] = 1
-        json_dict["loupan_id"] = huxinxi.loupan_id
+        json_dict["house_cert"] = "有证" if huxinxi.house_cert=="1" else "无证"
+        json_dict["active"] = "有效" if huxinxi.active else "无效"
+        json_dict["loupan_id"] = huxinxi.loupan.buildingno
+        json_dict["xiaoqu_id"] = huxinxi.loupan.xiaoqu.name
         json_list.append(json_dict)
     return render_template("admin/householdmgr.html",jsonData=json_list)
     
@@ -248,10 +249,13 @@ def householdMgr():
 @admin_login_req
 def householdmgr_change():
     form=HuForm(LouPan)
+    print(form.data)
     if form.validate_on_submit():
         data = form.data
+        print("ssssssssssss")
         isExist = HuXinXi.query.filter_by(roomno=data['huxinxiRoomno']).count()
-        if isExist == 1:
+        print(isExist)
+        if isExist >0:
             flash('添加失败')
             return redirect(url_for("admin.householdmgr_change"))
         huXinxi = HuXinXi(
@@ -260,7 +264,7 @@ def householdmgr_change():
             squares=data['huxinxiSquares'],
             house_by_dt=datetime.strptime(data['huxinxiHouse_by_dt'], "%Y-%m-%d") ,
             house_cert=data['huxinxiHouse_cer'],
-            active=data['huxinxiActive'],
+            active=1,
             loupan_id=data['loupan_option'],  
         )
         db.session.add(huXinxi)

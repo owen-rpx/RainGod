@@ -291,7 +291,7 @@ class LouPanForm(FlaskForm):
             "type": "submit",
             "lay-filter": "submit",
             "style": "width:100px; height:30px;",
-            "onclick": "mesg()"
+            "onclick": ""
         }
     )
     def __init__(self, xiaoQu, *args, **kwargs):
@@ -323,7 +323,7 @@ class HuForm(FlaskForm):
             "placeholder": "请输入房屋类型！",
         },
         choices=[('商品房', '商品房'),('回迁房', '回迁房'),('公建房', '公建房'),('其它', '其它')],
-        default=0,
+        default="",
         coerce=str
         
     )
@@ -364,8 +364,8 @@ class HuForm(FlaskForm):
             "placeholder":"请输入房屋证明！",
         },
         choices=[('0', '未取得产权证'),('1', '已取得产权证')],
-        default=0,
-        coerce=int
+        default='0',
+        coerce=str
     )
     loupan_option=SelectField(
         label="楼盘",
@@ -381,7 +381,7 @@ class HuForm(FlaskForm):
         },
         choices=[],
         default=0,
-        coerce=str
+        coerce=int
     )
     submit = SubmitField(
         "提交",
@@ -389,11 +389,11 @@ class HuForm(FlaskForm):
             "type": "submit",
             "lay-filter": "submit",
             "style": "width:100px; height:30px;",
-            "onclick": "mesg()"
+            "onclick": ""
         }
     )
     def __init__(self, loupan, *args, **kwargs):
         super(HuForm, self).__init__(*args, **kwargs)
-        self.loupan_option.choices = [(loupan_option.id, loupan_option.buildingno)
+        self.loupan_option.choices = [(loupan_option.id, loupan_option.xiaoqu.name+"("+loupan_option.buildingno+")")
         for loupan_option in loupan.query.order_by(loupan.id).all()]
         self.loupan = loupan

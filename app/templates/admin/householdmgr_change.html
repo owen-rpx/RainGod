@@ -8,6 +8,9 @@
   <div class="layui-form-item"><label class="layui-form-label">楼盘:</label><div class="layui-input-block">
     {{form.loupan_option}}
   </div></div>
+  <div class="layui-form-item"><label class="layui-form-label">购买日期:</label><div class="layui-input-block">
+    {{form.huxinxiHouse_by_dt}}
+  </div></div>
   <div class="layui-form-item"><label class="layui-form-label">房屋号:</label><div class="layui-input-block">
     {{form.huxinxiRoomno}}
   </div></div>
@@ -17,9 +20,7 @@
     <div class="layui-form-item"><label class="layui-form-label">面积:</label><div class="layui-input-block">
         {{form.huxinxiSquares}}
       </div></div>
-      <div class="layui-form-item"><label class="layui-form-label">购买日期:</label><div class="layui-input-block">
-        {{form.huxinxiHouse_by_dt}}
-      </div></div>
+
       <div class="layui-form-item"><label class="layui-form-label">房屋证明:</label><div class="layui-input-block">
         {{form.huxinxiHouse_cer}}
       </div></div>
@@ -53,8 +54,6 @@
       }
       layui.use('laydate', function(){
         var laydate = layui.laydate;
-        
-        //常规用法
         laydate.render({
           elem: '#huxinxiHouse_by_dt'
         });
